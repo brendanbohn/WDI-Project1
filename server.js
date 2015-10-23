@@ -35,6 +35,13 @@ app.get('/profile', function(req,res){
 	res.render('profile', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 });
 
+// POST route
+app.post('/profile', function(req, res) {
+	// console.log(req.body);
+	var data = req.body;
+	res.json(data);
+});
+
 app.listen(3000, function() {
   console.log("server running on port 3000");
 });

@@ -4,7 +4,13 @@
 	<!-- this has all of our style and client-side script tags -->
 	<% include ./_head %>
 <body>
+
+<!-- Navigation Bar -->
+
 	<% include ./_nav %>
+
+<!-- User Info -->
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
@@ -17,29 +23,31 @@
 			</div>
 			<div class="col-md-9 text-center" id="profile-stream">
 				<div id="log-voyage-stream">
-					<button class="btn btn-default" data-toggle="modal" data-target=".log-modal-lg" type="submit">Log a voyage</button>
+					<button class="btn btn-default" data-toggle="modal" data-target=".trip-form-modal-lg" type="submit">Log a voyage</button>
 				</div>
 
 <!-- Voyages -->
 
-				<div class="media text-left">
-				  <div class="media-left">
-				    <a href="#">
-				      <img class="media-object" src="http://i.imgur.com/XXzlRIu.png?1" alt="...">
-				    </a>
-				  </div>
-				  <div class="media-body">
-				    <h4 class="media-heading">Whistler, British Colombia</h4>
-				    <p>Phasellus dignissim nibh et purus blandit facilisis. Aliquam vehicula pretium odio a venenatis. Nam rutrum lacus non ullamcorper hendrerit. Phasellus a tortor a sapien tincidunt egestas vitae faucibus metus. Vestibulum eu tempor magna. Duis cursus volutpat ligula id posuere. Vestibulum condimentum convallis lacus. Sed at lacus ac dui laoreet auctor.</p>
-				    <p>October 22, 2015</p>
-				  </div>
+				<div id="tripStream">
+					<div class="media text-left">
+					  <div class="media-left">
+					    <a href="#">
+					      <img class="media-object" src="http://i.imgur.com/XXzlRIu.png?1" alt="...">
+					    </a>
+					  </div>
+					  <div class="media-body">
+					    <h3 class="media-heading">Whistler, British Colombia</h3>
+					    <p>Phasellus dignissim nibh et purus blandit facilisis. Aliquam vehicula pretium odio a venenatis. Nam rutrum lacus non ullamcorper hendrerit. Phasellus a tortor a sapien tincidunt egestas vitae faucibus metus. Vestibulum eu tempor magna. Duis cursus volutpat ligula id posuere. Vestibulum condimentum convallis lacus. Sed at lacus ac dui laoreet auctor.</p>
+					    <p>October 22, 2015</p>
+					  </div>
+					 </div>
 			</div>
 		</div>
 	</div>
 
 <!-- LOGIN MODAL -->
 
-	<div class="modal fade log-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal fade trip-form-modal-lg" id="trip-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
 	      <form id="trip-form">
@@ -53,7 +61,7 @@
 	        </div>
 	        <div class="form-group">
 	          <label for="inputDate">Date</label>
-	          <input type="text" class="form-control" id="inputDate" placeholder="Date">
+	          <input type="text" class="form-control" id="inputDate" placeholder="Date" name="tripDate">
 	        </div>
 	        <div class="form-group">
 	          <label for="inputImageUrl">Image</label>
@@ -67,6 +75,12 @@
 	  </div>
 	</div>
 
+<!-- Temporary fix to fix an error message for not having a map on my profile page -->
+
+	<div class="modal">
+		<div id="map">
+		</div>
+	</div>
 
 </body>
 </html>
