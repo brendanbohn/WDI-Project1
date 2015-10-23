@@ -6,6 +6,9 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var db = require("./models/index");
+// google maps api
+require('dotenv').load();
+var GOOGLE_MAPS_KEY = process.env.GOOGLE_MAPS_KEY;
 
 // MIDDLEWARE //
 
@@ -14,9 +17,6 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
-//
-require('dotenv').load();
-var GOOGLE_MAPS_KEY = process.env.GOOGLE_MAPS_KEY;
 
 // ROUTES //
 

@@ -1,13 +1,11 @@
-// require mongoose module
-var mongoose = require("mongoose");
-// connect to MongoDB
-/*
-you can check this by going to your console and using these commands
-- use 'mongo' to open MongoDB
-- use 'show dbs' to show your databases
-- use 'use <your db name>' to select your databases
-- use 'show collections' to show the models in your database
-- use 'db.<modelName>.find()' to query your database for a model e.g, db.pizza.find()
-*/
+// DB
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/captains-log');
 
-mongoose.connect("mongodb://localhost/captains_log");
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+  console.log("db is open for business");
+});
+
+module.exports.Post = require('./post.js');
