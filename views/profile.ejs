@@ -17,8 +17,11 @@
 			</div>
 			<div class="col-md-9 text-center" id="profile-stream">
 				<div id="log-voyage-stream">
-					<button class="btn btn-default" type="submit">Log a voyage</button>
+					<button class="btn btn-default" data-toggle="modal" data-target=".log-modal-lg" type="submit">Log a voyage</button>
 				</div>
+
+<!-- Voyages -->
+
 				<div class="media text-left">
 				  <div class="media-left">
 				    <a href="#">
@@ -33,5 +36,37 @@
 			</div>
 		</div>
 	</div>
+
+<!-- LOGIN MODAL -->
+
+	<div class="modal fade log-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <form id="trip-form">
+	        <div class="form-group">
+	          <label for="inputCity">City, State</label>
+	          <input type="text" class="form-control" id="inputCity" placeholder="City, State" name="tripCityState" required>
+	        </div>
+	        <div class="form-group">
+	          <label for="inputDescription">Description</label>
+	          <input type="text" class="form-control" id="inputDescription" placeholder="Share your thoughts and experiences" name="tripDescription">
+	        </div>
+	        <div class="form-group">
+	          <label for="inputDate">Date</label>
+	          <input type="text" class="form-control" id="inputDate" placeholder="Date">
+	        </div>
+	        <div class="form-group">
+	          <label for="inputImageUrl">Image</label>
+	          <input type="text" class="form-control" id="inputImageUrl" placeholder="paste a URL to your photo" name="tripImage">
+	        </div>
+	        <div class="text-right">
+	          <button type="submit" class="btn btn-default">Submit</button>
+	        </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+
 </body>
 </html>
