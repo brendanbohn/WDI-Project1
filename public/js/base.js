@@ -5,9 +5,9 @@ var map;
 function initMap() {
   // Create a map object and specify the DOM element for display.
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
+    center: {lat: 37.78, lng: -122.44},
     scrollwheel: false,
-    zoom: 8
+    zoom: 3
   });
 }
 
@@ -28,7 +28,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		// console.log('Prevented default on the trip submit form');
 		var tripData = $('#trip-form').serialize();
-		//console.log(tripData);
+		console.log('Before the ajax post: ', tripData);
 
 		$.ajax({
 			url: '/profile',
@@ -36,15 +36,14 @@ $(document).ready(function(){
 			data: tripData
 		})
 		.done(function(data) {
-			console.log("made a new post", data);
-			var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data.tripImage+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data.tripCityState+"</h3><p>"+data.tripDescription+"</p><p>"+data.tripDate+"<a href='#'><span class='pull-right glyphicon glyphicon-pencil'></span></a></p></div></div>";
-			console.log(postHtml);
+			console.log("AJAX response: made a new post", data);
+			var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data.img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data.location+"</h3><p>"+data.description+"</p><p>"+data.date+"<a href='#'><span class='pull-right glyphicon glyphicon-pencil'></span></a></p></div></div>";
+			// console.log(postHtml);
 			$("#tripStream").prepend(postHtml);
 			$('#trip-form')[0].reset();
 			$('#trip-form-modal').modal('hide');
 		})
 		.fail(function(data) {
-			$('#fail').modal();
 			alert("Failed to post");
 		});
 	});

@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
 
-var postSchema = mongoose.Schema({
+var Schema = mongoose.Schema;
+
+var postSchema = new Schema({
 	location: {type: String, required: true},
 	description: { type: String}, 
-  date: { type: Date, default: Date.now },
+  date: { type: String},
   img: {type: String}
 });
 

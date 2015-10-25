@@ -13,9 +13,21 @@ var GOOGLE_MAPS_KEY = process.env.GOOGLE_MAPS_KEY;
 // MIDDLEWARE //
 
 app.set("view engine", "ejs");
-
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+
+
+// TEST 
+/*db.Post.create({location: 'asdfasdf'}, function(err, data) {
+	console.log('error', err);
+	console.log('data ', data);
+	data.save(function(err) { 
+		console.log(err); 
+	});
+});
+*/
+
+
 
 
 // ROUTES //
@@ -32,14 +44,30 @@ app.get('/map', function(req,res){
 
 // GET route for the profile url
 app.get('/profile', function(req,res){
-	res.render('profile', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+	db.Post.find({}, function(err, posts) {
+		if(err) console.log(err);
+		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+	});
 });
 
 // POST route
 app.post('/profile', function(req, res) {
 	// console.log(req.body);
-	var data = req.body;
-	res.json(data);
+	db.Post.create(req.body, function(err, post) {
+		console.log("post request went through",post);
+		if (err) console.log('ermagerd', err);
+		res.json(post);
+	});
+});
+
+app.delete('/profile/:_id', function(req, res) {
+	console.log('post id is ', req.params._id);
+	db.Post.find({
+		_id: req.params._id
+	}).remove(function(err, post) {
+		console.log("post deleted");
+		res.json("The post is gone");
+	});
 });
 
 app.listen(3000, function() {

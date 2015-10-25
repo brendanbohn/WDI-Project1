@@ -7,7 +7,7 @@ html, body {
 	height: 200px;
 	margin: 125px 0 40px 0;
 }
-#map {
+.myMap {
 	height: 100%;
 }
 h4 {
@@ -15,6 +15,46 @@ h4 {
 }
 #user-city {
 	color: gray;
+}
+
+/* 	EXPLORE 	*/
+
+.main {
+	margin: -100px 0 0 0;
+	text-align: center;
+	background: url('http://static3.businessinsider.com/image/54cfea306bb3f7d1181b774b/10-travel-destinations-that-are-trending-right-now.jpg');
+	background-size: cover;
+	height: 450px;
+	color: white;
+}
+h1 {
+	margin: 100px 0 0 0;
+	font-size: 28;
+	color: white;
+	font-size: 60px;
+  font-weight: 700;
+}
+.main p {
+	margin: 0 0 30px 0;
+	font-size: 16;
+	color: white;
+}
+#how-button {
+	margin: 0 auto;
+	background-color: rgba(255,255,255,.5);
+	width: 100px;
+	padding: 10px 20px;
+	border-radius: 2px;
+	text-align: center;
+
+}
+#how-button:hover {
+	background-color: rgba(0,0,0,.5);
+}
+.search {
+	height: 100px;
+	background: rgba(0,0,0,.5);
+	margin: 200px 0 0 0;
 }
 
 /* ADD TOP MARGIN TO STREAM SIDE OF PROFILE */
@@ -31,9 +71,11 @@ h4 {
 }
 
 /* POSTS */
-
+.trip-post {
+	margin: 50px 0;
+}
 .media-object {
-	height: 200px;
+	width: 200px;
 }
 .media {
 	margin: 100px 100px 0 100px;
