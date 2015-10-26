@@ -1,19 +1,7 @@
 console.log('Sanity check, client-side JS is working.');
 
-var map;
-
-function initMap() {
-  // Create a map object and specify the DOM element for display.
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 37.78, lng: -122.44},
-    scrollwheel: false,
-    zoom: 3
-  });
-}
-
 $(document).ready(function(){
 
-	initMap();
 
 // DELETE A TRIP
 	$('#tripStream').click(function(e){

@@ -39,7 +39,10 @@ app.get('/', function(req,res){
 
 // GET route for the map url
 app.get('/map', function(req,res){
-	res.render('map', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+	db.Post.find({}, function(err, posts) {
+		if(err) console.log(err);
+		res.render('map', {posts:posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+	});
 });
 
 // GET route for the profile url
