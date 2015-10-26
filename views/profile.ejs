@@ -17,7 +17,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 	<!-- Google Maps API -->
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<% GOOGLE_MAPS_KEY %>"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<% GOOGLE_MAPS_KEY %>&sensor=false&libraries=places"></script>
 	
 	<!-- APPLICATION -->
 
@@ -55,8 +55,49 @@
 				<p id="user-city">San Francisco, CA</p>
 			</div>
 			<div class="col-md-9 text-center" id="profile-stream">
-				<div id="log-voyage-stream">
-					<button class="btn btn-default" data-toggle="modal" data-target=".trip-form-modal-lg" type="submit">Log a voyage</button>
+				<div class="row">
+					<h2>Where did you go?</h2>
+					<input type="text" class="form-control" id="autocomplete" placeholder="City, State" name="location" required>
+
+					<!-- log a trip form -->
+
+					<form id="trip-form">
+						<!-- hidden -->
+						<input type="text" class="hidden" id="trip-location" placeholder="City, State" name="location">
+						<input type="hidden" id="mark-lat" name="latitude" value="">
+						<input type="hidden" id="mark-lng" name="longitude" value="">
+
+						<!-- visible -->
+
+						<!-- first column of form -->
+
+						<div class="col-md-6">
+							<!-- date -->
+							<div class="form-group">
+							  <label for="inputDate">Date</label>
+							  <input type="text" class="form-control" id="inputDate" placeholder="Date" name="date">
+							</div>
+							<!-- image -->
+							<div class="form-group">
+							  <label for="inputImageUrl">Image</label>
+							  <input type="text" class="form-control" id="inputImageUrl" placeholder="paste a URL to your photo" name="img">
+							</div>
+						</div>
+
+						<!-- second column of form -->
+
+						<div class="col-md-6">
+							<!-- description -->
+							<div class="form-group">
+							  <label for="inputDescription">Description</label>
+							  <input type="text" class="form-control" id="inputDescription" placeholder="Share your thoughts and experiences" name="description">
+							</div>
+							<!-- form submit button -->
+							<div class="text-right">
+							  <button type="submit" class="btn btn-default">Submit</button>
+							</div>
+						</div>
+					</form>
 				</div>
 
 <!-- Voyages -->
@@ -65,7 +106,7 @@
 					<% if (posts.length !== 0 ) {%>
 					<% for (var i=posts.length-1; i>=0; i--) {%>
 					<div class="trip-post" id="<%=posts._id%>">
-					<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=posts[i].location%></h3><p><%=posts[i].description%></p><p><%=posts[i].date%><a href='#'><span class='pull-right glyphicon glyphicon-pencil'></span></a></p></div></div>
+					<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=posts[i].location%></h3><p><%=posts[i].description%></p><p><%=posts[i].date%><button data-id="<%= posts[i]._id %> " type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div>
 					</div>
 					<%}%>
 					<%} else {%>
@@ -74,36 +115,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-<!-- LOG VOYAGE MODAL -->
-
-	<div class="modal fade trip-form-modal-lg" id="trip-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-	  <div class="modal-dialog modal-lg">
-	    <div class="modal-content">
-	      <form id="trip-form">
-	        <div class="form-group">
-	          <label for="inputCity">City, State</label>
-	          <input type="text" class="form-control" id="autocomplete" placeholder="City, State" name="location" required>
-	        </div>
-	        <div class="form-group">
-	          <label for="inputDescription">Description</label>
-	          <input type="text" class="form-control" id="inputDescription" placeholder="Share your thoughts and experiences" name="description">
-	        </div>
-	        <div class="form-group">
-	          <label for="inputDate">Date</label>
-	          <input type="text" class="form-control" id="inputDate" placeholder="Date" name="date">
-	        </div>
-	        <div class="form-group">
-	          <label for="inputImageUrl">Image</label>
-	          <input type="text" class="form-control" id="inputImageUrl" placeholder="paste a URL to your photo" name="img">
-	        </div>
-	        <div class="text-right">
-	          <button type="submit" class="btn btn-default">Submit</button>
-	        </div>
-	      </form>
-	    </div>
-	  </div>
 	</div>
 
 <!-- Temporary fix to fix an error message for not having a map on my profile page -->

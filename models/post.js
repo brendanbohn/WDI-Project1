@@ -6,7 +6,8 @@ var postSchema = new Schema({
 	location: {type: String, required: true},
 	description: { type: String}, 
   date: { type: String},
-  img: {type: String}
+  img: {type: String},
+  user: [],
 });
 
 var Post = mongoose.model('Post', postSchema);

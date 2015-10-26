@@ -5,6 +5,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var bcrypt = require('bcrypt');
 var db = require("./models/index");
 // google maps api
 require('dotenv').load();
@@ -32,6 +33,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // ROUTES //
 
+//	GETS
+
 // GET route for the root url
 app.get('/', function(req,res){
 	res.render('index', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
@@ -53,8 +56,10 @@ app.get('/profile', function(req,res){
 	});
 });
 
-// POST route
-app.post('/profile', function(req, res) {
+// POSTS
+
+// user POST route
+app.post('/api/posts', function(req, res) {
 	// console.log(req.body);
 	db.Post.create(req.body, function(err, post) {
 		console.log("post request went through",post);
@@ -62,8 +67,22 @@ app.post('/profile', function(req, res) {
 		res.json(post);
 	});
 });
+// user POST route
+app.post('/api/users', function(req,res){
+	var user = req.body;
+	console.log('user: ', user);
+	User.createSecure(user.name, user.username, user.password, user.email, user.location, user.bio, user.img, function(err,user){
+			//db.User.create(req.body, function(err, user){
+		console.log("user request went through: ", user);
+		if (err) console.log('ermagerd', err);
+		res.json(user);
+	});
+});
 
-app.delete('/profile/:_id', function(req, res) {
+
+// DELETE
+
+app.delete('/posts/:_id', function(req, res) {
 	console.log('post id is ', req.params._id);
 	db.Post.find({
 		_id: req.params._id
