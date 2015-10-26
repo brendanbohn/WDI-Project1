@@ -17,6 +17,12 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
+mongoose.connect(
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/captainslog' // plug in the db name you've been using
+);
+
 
 // TEST 
 /*db.Post.create({location: 'asdfasdf'}, function(err, data) {
@@ -92,6 +98,6 @@ app.delete('/posts/:_id', function(req, res) {
 	});
 });
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log("server running on port 3000");
 });
