@@ -89,7 +89,7 @@ h4 {
 	color: gray;
 }
 #profile-stream {
-	margin: 100px 0 0 0;
+	margin: 85px 0 0 0;
 }
 
 
@@ -118,9 +118,11 @@ h4 {
 	padding: 0 0 0 20px;
 }
 #trip-form {
-	margin: 25px;
+	margin: 60px 0 0 0;
 }
-
+#inputDescription {
+	height: 108px;
+}
 /* TRYING TO ADD SPACE ABOVE EACH POST */
 
 #trip-stream .media {

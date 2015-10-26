@@ -1,33 +1,14 @@
 console.log('Sanity check, client-side JS is working.');
 
 
+var initAutocomplete = function() {
+	//Searchbox
 
-		var initAutocomplete = function() {
-			//Searchbox
+	var searchBox = new google.maps.places.SearchBox(document.getElementById("autocomplete"));
 
-	    var searchBox = new google.maps.places.SearchBox(document.getElementById("autocomplete"));
-			
+	//	Need to set bias to current city and business type to bars only
 
-			//Need to set bias to current city and business type to bars only!!!
-
-
-			// Bias the SearchBox results towards current map's viewport.
-		  	map.addListener('bounds_changed', function() {
-		    searchBox.setBounds(map.getBounds());
-		  	});
-
-
-		  	// Listen for the event fired when the user selects a prediction and retrieve
-		  	searchBox.addListener('places_changed', function() {
-		    	var places = searchBox.getPlaces();
-		    	place = places[0];
-		    	console.log(place);
-		    	if (places.length === 0) {
-		    		return;
-	          //set alert for "NOT FOUND!"
-		    	}
-			});
-		};
+};
 
 
 $(document).ready(function(){
@@ -83,6 +64,7 @@ $(document).ready(function(){
 	// DELETE A TRIP
 		$('#tripStream').on('click', '.close', function(e) {
 	  	e.preventDefault();
+	  	//console.log($(this));
 	  	var post = $(this).data();
 	  	var postId = $(this).data().id;
 	  	console.log(postId);
@@ -90,9 +72,5 @@ $(document).ready(function(){
 			console.log(deletedPost);
 			$(deletedPost).empty();
 		});
-
-// GOOGLE MAPS STUFF
-
-
 
 });

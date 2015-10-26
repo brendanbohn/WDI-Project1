@@ -56,8 +56,10 @@
 			</div>
 			<div class="col-md-9 text-center" id="profile-stream">
 				<div class="row">
-					<h2>Where did you go?</h2>
-					<input type="text" class="form-control" id="autocomplete" placeholder="City, State" name="location" required>
+					<h2>Log a voyage</h2>
+					<div class="col-md-12">
+						<input type="text" class="form-control" id="autocomplete" placeholder="Location" name="location" required>
+					</div>
 
 					<!-- log a trip form -->
 
@@ -90,7 +92,7 @@
 							<!-- description -->
 							<div class="form-group">
 							  <label for="inputDescription">Description</label>
-							  <input type="text" class="form-control" id="inputDescription" placeholder="Share your thoughts and experiences" name="description">
+							  <textarea type="text" class="form-control" id="inputDescription" placeholder="Share your thoughts and experiences" name="description"></textarea> 
 							</div>
 							<!-- form submit button -->
 							<div class="text-right">
@@ -106,7 +108,7 @@
 					<% if (posts.length !== 0 ) {%>
 					<% for (var i=posts.length-1; i>=0; i--) {%>
 					<div class="trip-post" id="<%=posts._id%>">
-					<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=posts[i].location%></h3><p><%=posts[i].description%></p><p><%=posts[i].date%><button data-id="<%= posts[i]._id %> " type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div>
+					<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=posts[i].location%></h3><p><%=posts[i].description%></p><p><%=posts[i].date%><button data-id="<%= posts[i]._id %>" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div>
 					</div>
 					<%}%>
 					<%} else {%>
