@@ -1,5 +1,6 @@
 console.log('Sanity check, client-side JS is working.');
 
+
 $(document).ready(function(){
 
 

@@ -17,37 +17,41 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 	<!-- Google Maps API -->
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<% GOOGLE_MAPS_KEY %>"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key="+<% GOOGLE_MAPS_KEY %>+"&libraries=places&callback=initAutocomplete"></script>
 	
 	<!-- APPLICATION -->
 
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 	<!-- Custom JS -->
-	<script src="/js/base.js"></script>
+	<script src="/js/explore.js"></script>
 </head>
 <body>
 
 <!-- Navigation Bar -->
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-  		<a class="navbar-brand" href="#">Captain's Log</a>
-   		<ul class="nav navbar-nav pull-right">
-   			<li class=""><a href="/">Explore</a></li>
-   		 	<li class="active"><a href="/profile">Profile</a></li>
-   		 	<li class=""><a href="/map">My Map</a></li>
-   		 	<li class=""><a href="#">Settings</a></li>
-    	</ul>
-  </div>
-</nav>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	  	<div class="navbar navbar-header">
+	  		<a class="navbar-brand" href="/">Captain's Log</a>
+	  	</div>
+	  	<div class="">
+	   		<ul class="nav navbar-nav pull-right">
+	   			<li class=""><a href="/">Explore</a></li>
+	   		 	<li class="active"><a href="/profile">Profile</a></li>
+	   		 	<li class=""><a href="/map">My Map</a></li>
+	   		 	<li class=""><a href="#">Settings</a></li>
+	    	</ul>
+	    </div>
+	  </div>
+	</nav>
 
 <!-- User Info -->
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<img src="http://i.imgur.com/7YX8zTs.png" class="img-circle" id="profile-picture" alt="profile picture">
+				<img src="http://i.imgur.com/Pxbyqit.png?1" id="profile-picture" alt="profile picture">
 				<br>
 				<h3>Brendan Bohn</h3>
 				<h4>brendanbohn</h4>
@@ -78,13 +82,37 @@
 
 <!-- LOG VOYAGE MODAL -->
 
-	<div class="modal fade trip-form-modal-lg" id="trip-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+
+<div class="modal fade trip-form-modal-lg" id="trip-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+				<input id="pac-input" class="controls form-control" type="text" name="location" required
+					    placeholder="Enter a location">
+					<div id="type-selector" class="controls">
+					  <input type="radio" name="type" id="changetype-all" checked="checked">
+					  <label for="changetype-all">All</label>
+				
+					  <input type="radio" name="type" id="changetype-establishment">
+					  <label for="changetype-establishment">Establishments</label>
+				
+					  <input type="radio" name="type" id="changetype-address">
+					  <label for="changetype-address">Addresses</label>
+				
+					  <input type="radio" name="type" id="changetype-geocode">
+					  <label for="changetype-geocode">Geocodes</label>
+					</div>
+				<div id="map"></div>
+	    </div>
+	  </div>
+	</div>
+
+<!-- 	<div class="modal fade trip-form-modal-lg" id="trip-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
 	      <form id="trip-form">
 	        <div class="form-group">
 	          <label for="inputCity">City, State</label>
-	          <input type="text" class="form-control" id="autocomplete" placeholder="City, State" name="location" required>
+	          <input id="pac-input" class="controls form-control" type="text" name="location" required placeholder="Enter a location">
 	        </div>
 	        <div class="form-group">
 	          <label for="inputDescription">Description</label>
@@ -104,7 +132,7 @@
 	      </form>
 	    </div>
 	  </div>
-	</div>
+	</div> -->
 
 <!-- Temporary fix to fix an error message for not having a map on my profile page -->
 
@@ -114,4 +142,3 @@
 	</div>
 
 </body>
-</html>

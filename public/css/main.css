@@ -3,6 +3,78 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
+/* 	NAVBAR 	*/
+
+/*.navbar {
+	background-color: rgba(255,255,255,.5);
+}*/
+
+/* 	EXPLORE 	*/
+.main {
+	margin: 0 auto;
+	text-align: center;
+	background: url('http://static3.businessinsider.com/image/54cfea306bb3f7d1181b774b/10-travel-destinations-that-are-trending-right-now.jpg');
+	background-size: cover;
+	background-position: top center;
+	height: 100%;
+	position: relative;
+}
+.main h1 {
+	padding: 200px 0 0 0;
+	font-size: 28;
+	color: white;
+	font-size: 60px;
+  font-weight: 700;
+}
+.main p {
+	color: white;
+	font-size: 20px;
+	margin: 0 0 25px 0;
+}
+.main a {
+	margin: 0 25px;
+	text-decoration: none;
+	color: white;
+	background-color: rgba(255,255,255,.5);
+	width: 500px;
+	padding: 10px 40px;
+	border-radius: 2px;
+	text-align: center;
+}
+.main a:hover {
+	margin: 0 25px;
+	text-decoration: none;
+	color: white;
+	background-color: rgba(0,0,0,.5);
+}
+#signup-form,
+#signin-form {
+	margin: 25px;
+}
+.search {
+	height: 100px;
+	width: 100%;
+	background: rgba(0,0,0,.5);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.navbar-center {
+	margin: 25px 0 0 0;
+}
+#explore-search {
+	background-color: rgba(255,255,255,.8);
+	color: black;
+}
+#explore-search input {
+	width: 500px;
+}
+.modal h2 {
+	text-align: center;
+}
+
+/*	PROFILE PAGE 	*/
+
 #profile-picture {
 	height: 200px;
 	margin: 125px 0 40px 0;
@@ -16,61 +88,20 @@ h4 {
 #user-city {
 	color: gray;
 }
-
-/* 	EXPLORE 	*/
-
-.main {
-	margin: -100px 0 0 0;
-	text-align: center;
-	background: url('http://static3.businessinsider.com/image/54cfea306bb3f7d1181b774b/10-travel-destinations-that-are-trending-right-now.jpg');
-	background-size: cover;
-	height: 450px;
-	color: white;
-}
-h1 {
-	margin: 100px 0 0 0;
-	font-size: 28;
-	color: white;
-	font-size: 60px;
-  font-weight: 700;
-}
-.main p {
-	margin: 0 0 30px 0;
-	font-size: 16;
-	color: white;
-}
-#how-button {
-	margin: 0 auto;
-	background-color: rgba(255,255,255,.5);
-	width: 100px;
-	padding: 10px 20px;
-	border-radius: 2px;
-	text-align: center;
-
-}
-#how-button:hover {
-	background-color: rgba(0,0,0,.5);
-}
-.search {
-	height: 100px;
-	background: rgba(0,0,0,.5);
-	margin: 200px 0 0 0;
-}
-
-/* ADD TOP MARGIN TO STREAM SIDE OF PROFILE */
-
 #profile-stream {
 	margin: 175px 0 0 0;
 }
 
-/* CREATE NEW POST */
+
+/* create new post */
 
 #log-voyage-stream {
 	padding-bottom: 100px;
 	border-bottom: 1px solid gray;
 }
 
-/* POSTS */
+/* posts */
+
 .trip-post {
 	margin: 50px 0;
 }
