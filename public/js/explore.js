@@ -1,4 +1,4 @@
-console.log('Sanity check, client-side JS is working.');
+// console.log('Sanity check, client-side JS is working.');
 
 
 /*var initAutocomplete = function() {
@@ -34,7 +34,7 @@ initAutocomplete();*/
 // checks if user is logged in
 function checkAuth() {
 	$.get('/current-user', function (data) {
-		console.log(data);
+		// console.log(data);
     // shows the full navbar if user is logged in
     if (data.user) {
     $('.logged-in').show();
@@ -47,17 +47,24 @@ function checkAuth() {
 
 $(document).ready(function(){
 
+
+
+/*	AUTHORIZATION 	*/
+
 	// checks if user is logged in
 	checkAuth();
 
-// CREATE A NEW USER
+
+
+/*	CREATE A NEW USER 	*/
+
 	// on sumbit of the signup form
 	$('#signup-form').submit(function(e){
 		e.preventDefault();
 		console.log('Prevented default on the sign-up form.');
 		// serialize the form data
 		var userData = $(this).serialize();
-		console.log(userData);
+		// console.log(userData);
 		// send data to server
 		$.ajax({
 			url: '/api/users',
@@ -76,7 +83,37 @@ $(document).ready(function(){
 		});
 	});
 
-// LOGOUT USER
+
+
+/* 	LOGIN USER 	*/
+
+	//when sign in form submit button is clicked
+	$('#signin-form').submit(function(e){
+		e.preventDefault();
+		console.log('Prevented default on the sign-in form.');
+		// serialize the form data
+		var userData = $(this).serialize();
+		console.log("User data from the sign-in form is: ", userData);
+		$.ajax({
+			url: '/login',
+			type: "POST",
+			data: userData,
+		})
+		.done(function(data) {
+			// console.log('user data: ', data);
+			$('#signin-form-modal').modal('hide');
+			$('.logged-in').show();
+			window.location.href= "/profile";
+		})
+		.fail(function(data) {
+			alert("Failed to post");
+		});
+	});
+
+
+
+/* 	LOGOUT USER 	*/
+
 	// when logout button is clicked (it's in the settings dropdown)
 	$('#logout-btn').click(function(){
 		$.ajax ({
@@ -96,32 +133,5 @@ $(document).ready(function(){
 	});
 
 
-// serialize the submit info
-// on server, authenticate server - done
-// redirect to the profile page
-
-// USER SIGN-IN
-	//when sign in form submit button is clicked
-	$('#signin-form').submit(function(e){
-		e.preventDefault();
-		console.log('Prevented default on the sign-up form.');
-		// serialize the form data
-		var userData = $(this).serialize();
-		console.log(userData);
-		$.ajax({
-			url: '/api/users',
-			type: "POST",
-			data: userData,
-		})
-		.done(function(data) {
-			// console.log('user data: ', data);
-			$('#signin-form-modal').modal('hide');
-			$('.logged-in').show();
-			window.location.href= "/profile";
-		})
-		.fail(function(data) {
-			alert("Failed to post");
-		});
-	});
 
 });

@@ -40,9 +40,11 @@ app.use(session({
 
 
 
-// ROUTES //
+/* 	ROUTES 	*/
 
-//	GETS
+
+
+//	GET ROUTES
 
 // GET route for the root url
 app.get('/', function(req,res){
@@ -85,7 +87,9 @@ app.get('/logout', function (req, res) {
 	res.render('explore', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 });
 
-// POSTS
+
+
+// POST ROUTES
 
 // user POST route
 app.post('/api/posts', function (req, res) {
@@ -99,24 +103,32 @@ app.post('/api/posts', function (req, res) {
 
 // create a user 
 app.post('/api/users', function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   User.createSecure(req.body.email, req.body.password, function (err, user) {
   	console.log('new secure User created.');
     req.session.user = user;
-    console.log(req.session.user);
+    // console.log(req.session.user);
     res.json(user);
   });
 });
 
 // authenticate the user 
-app.post('/sessions', function (req, res) {
+app.post('/login', function (req, res) {
   // call authenticate function to check if password user entered is correct
+  console.log(req.body);
   User.authenticate(req.body.email, req.body.password, function (err, user) {
-    res.json(user);
+  	if(err) {
+  		console.log(err);
+  	} else {
+  		req.session.user = user;
+    	res.json(user);
+  	}
   });
 });
 
-// DELETE
+
+
+// DELETE ROUTES
 
 /*app.delete('/posts/:_id', function(req, res) {
 	console.log('post id is ', req.params._id);
@@ -128,6 +140,7 @@ app.post('/sessions', function (req, res) {
 	});
 });*/
 
+// delete post route
 app.delete('/posts/:id', function(req, res) {
 	console.log('delete this post: ', req.params.id);
 	db.Post.findOne({
