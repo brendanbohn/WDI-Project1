@@ -20,7 +20,7 @@ html, body {
 	position: relative;
 }
 .main h1 {
-	padding: 200px 0 0 0;
+	padding: 100px 0 0 0;
 	font-size: 28;
 	color: white;
 	font-size: 60px;
@@ -99,7 +99,9 @@ h4 {
 #profile-stream {
 	margin: 85px 0 0 0;
 }
-
+#explore-search-title {
+	margin: 100px 0 0 0;
+}
 
 /* create new post */
 

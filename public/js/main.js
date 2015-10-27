@@ -3,9 +3,8 @@ console.log('The client-side JS is working.');
 
 /* 	AUTOCOMPLETE SEARCHBOX 	*/
 
-// if there is an element with id="autocomplete"
-if (document.getElementById("autocomplete")) {
-	// creates a function called initAutocomplete
+
+/*	// creates a function called initAutocomplete
 	var initAutocomplete = function() {
 		
 		  var Marker;
@@ -16,7 +15,7 @@ if (document.getElementById("autocomplete")) {
 	
 		//Searchbox
 		if (document.getElementById("autocomplete")) {
-			var searchBox = new google.maps.places.SearchBox(document.getElementById("autocomplete"));
+			var searchBox = new google.maps.places.SearchBox(document.getElementById('autocomplete'));
 			// Need to set bias cities, states, etc.
 
 			// Listen for the event fired when the user selects a prediction and retrieve
@@ -33,8 +32,7 @@ if (document.getElementById("autocomplete")) {
 		}
 	};
 	// calls the initAutocomplete created above
-	initAutocomplete();
-}
+	initAutocomplete();*/
 
 
 
@@ -57,6 +55,15 @@ function checkAuth() {
 // runs once page is loaded
 $(document).ready(function(){
 
+/*	 AUTOCOMPLETE 	*/
+if (document.getElementById('searchTextField')) {
+	var input = document.getElementById('searchTextField');
+	autocomplete = new google.maps.places.Autocomplete(input);
+	
+	google.maps.event.addListener(autocomplete, 'places_changed', function() {
+		var place = autocomplete.getPlace();
+	});
+}
 
 /*	AUTHORIZATION 	*/
 
@@ -89,6 +96,7 @@ $(document).ready(function(){
 			alert("Failed to post");
 		});
 	});
+
 
 
 /* 	LOGIN USER 	*/
