@@ -117,13 +117,9 @@ app.post('/login', function (req, res) {
   // call authenticate function to check if password user entered is correct
   console.log(req.body);
   User.authenticate(req.body.email, req.body.password, function (err, user) {
-  	if(err) {
-  		console.log(err);
-  	} else {
   		req.session.user = user;
     	res.json(user);
-  	}
-  });
+  	});
 });
 
 

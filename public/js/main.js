@@ -91,7 +91,6 @@ $(document).ready(function(){
 	});
 
 
-
 /* 	LOGIN USER 	*/
 
 	//when sign in form submit button is clicked
