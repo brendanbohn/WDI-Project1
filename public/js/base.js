@@ -1,6 +1,6 @@
 console.log('Sanity check, client-side JS is working.');
 
-
+if (document.getElementById("autocomplete")) {
 var initAutocomplete = function() {
 	
 	  var Marker;
@@ -10,29 +10,42 @@ var initAutocomplete = function() {
 	  var contentString;
 
 	//Searchbox
-	var searchBox = new google.maps.places.SearchBox(document.getElementById("autocomplete"));
-
-
+	if (document.getElementById("autocomplete")) {
+		var searchBox = new google.maps.places.SearchBox(document.getElementById("autocomplete"));
 		//Need to set bias to current city and business type to bars only!!!
-
-	  	// Listen for the event fired when the user selects a prediction and retrieve
-	  	searchBox.addListener('places_changed', function () {
-	    	var places = searchBox.getPlaces();
-	    	place = places[0];
-	    	console.log("The place is: ", place);
-	    	console.log(place.geometry.location.lat);
-	    	if (places.length === 0) {
-	    		alert('Place not found');
-          //set alert for "NOT FOUND!"
-	    	}
+		// Listen for the event fired when the user selects a prediction and retrieve
+		searchBox.addListener('places_changed', function () {
+			var places = searchBox.getPlaces();
+			place = places[0];
+			console.log("The place is: ", place);
+			console.log(place.geometry.location.lat);
+			if (places.length === 0) {
+				alert('Place not found');
+		    //set alert for "NOT FOUND!"
+			}
 		});
-
+	}
 };
+initAutocomplete();
+}
 
+// checks if user is logged in
+function checkAuth() {
+	$.get('/current-user', function (data) {
+		console.log(data);
+    // shows the full navbar if user is logged in
+    if (data.user) {
+    $('.logged-in').show();
+  	} else {
+    // hides the full navbar if user is loggged in
+    	$('.logged-in').hide();
+    }
+  });
+}
 
 $(document).ready(function(){
-		
-initAutocomplete();
+
+	checkAuth();
 
 // CREATE A NEW USER
 	$('#signup-form').on('submit', function (e){

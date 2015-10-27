@@ -2,53 +2,21 @@
 <html lang="en">
 	<!-- include head partial from ./views/_head.ejs -->
 	<!-- this has all of our style and client-side script tags -->
-	<head>
-		<!-- Title -->
-		<title>Captain's Log</title>
-		<meta charset="UTF-8">
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+<%- include _head.ejs %>
 
-		<!-- VENDOR -->
-
-		<!-- jQuery -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<!-- Bootstrap JS -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-		<!-- Google Maps API -->
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<% GOOGLE_MAPS_KEY %>"></script>
-
-		<!-- APPLICATION -->
-
-		<!-- Custom CSS -->
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-
-		<!-- Custom JS -->
-		<script src="/js/map.js"></script>
-	</head>
 	
 <body>
 
 <!-- NAVIGATION BAR -->
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-  		<a class="navbar-brand" href="/">Captain's Log</a>
-   		<ul class="nav navbar-nav pull-right">
-   			<li class=""><a href="/">Explore</a></li>
-   		 	<li class=""><a href="/profile">Profile</a></li>
-   		 	<li class="active"><a href="/map">My Map</a></li>
-   		 	<li class=""><a href="#">Settings</a></li>
-    	</ul>
-  </div>
-</nav>
+<%- include _nav.ejs %>
 
 <!-- MAP -->
 
 	<div id="map" class="column myMap"></div>
+
+	<script src="/js/map.js"></script>
 
 </body>
 

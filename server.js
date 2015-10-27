@@ -49,7 +49,13 @@ app.get('/', function(req,res){
 	res.render('explore', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 });
 
+// users api
+app.get('/api/users', function (req,res) {
+	// res.json(data);
+});
+
 // GET route for the map url
+
 app.get('/map', function(req,res){
 	db.Post.find({}, function(err, posts) {
 		if(err) console.log(err);
@@ -58,17 +64,31 @@ app.get('/map', function(req,res){
 });
 
 // GET route for the profile url
-app.get('/profile', function(req,res){
+app.get('/profile', function (req,res){
 	db.Post.find({}, function(err, posts) {
 		if(err) console.log(err);
 		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 	});
 });
 
+// check auth current user auth
+
+app.get('/current-user', function (req, res) {
+	console.log(req.session.user);
+	res.json({user: req.session.user});
+});
+
+// logout user
+
+app.get('/logout', function (req, res) {
+	req.session.user = null;
+	res.render('explore', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+});
+
 // POSTS
 
 // user POST route
-app.post('/api/posts', function(req, res) {
+app.post('/api/posts', function (req, res) {
 	// console.log(req.body);
 	db.Post.create(req.body, function(err, post) {
 		console.log("post request went through",post);
@@ -80,11 +100,19 @@ app.post('/api/posts', function(req, res) {
 // create a user 
 app.post('/api/users', function(req, res) {
   console.log(req.body);
-  User.createSecure(req.body.email, req.body.password, function (err, newUser) {
+  User.createSecure(req.body.email, req.body.password, function (err, user) {
   	console.log('new secure User created.');
-    req.session.userId = newUser._id;
-    console.log(req.session.userId);
-    res.redirect('/profile');
+    req.session.user = user;
+    console.log(req.session.user);
+    res.json(user);
+  });
+});
+
+// authenticate the user 
+app.post('/sessions', function (req, res) {
+  // call authenticate function to check if password user entered is correct
+  User.authenticate(req.body.email, req.body.password, function (err, user) {
+    res.json(user);
   });
 });
 

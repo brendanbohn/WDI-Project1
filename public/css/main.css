@@ -47,6 +47,10 @@ html, body {
 	color: white;
 	background-color: rgba(0,0,0,.5);
 }
+#explore-box {
+	height: 200px;
+	background-color: rgba(0,0,0,.5);
+}
 #signup-form,
 #signin-form {
 	margin: 25px;
@@ -71,6 +75,10 @@ html, body {
 }
 .modal h2 {
 	text-align: center;
+}
+
+#explore-search-title {
+	color: white;
 }
 
 /*	PROFILE PAGE 	*/

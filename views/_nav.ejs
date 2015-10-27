@@ -1,11 +1,14 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-  		<a class="navbar-brand" href="#">Captain's Log</a>
+  <div class="container-fluid">
+  		<a class="navbar-brand" href="/">Captain's Log</a>
    		<ul class="nav navbar-nav pull-right">
-   			<li class=""><a href="/">Explore</a></li>
-   		 	<li class=""><a href="/profile">Profile</a></li>
-   		 	<li class=""><a href="/map">My Map</a></li>
-   		 	<li class=""><a href="#">Settings</a></li>
+   			<li class="logged-in"><a href="/">Explore</a></li>
+   		 	<li class="logged-in"><a href="/profile">Profile</a></li>
+   		 	<li class="logged-in"><a href="/map">My Map</a></li>
+   		 	<li class="logged-in"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" id="logout-btn">Logout</a></li>
+          </ul>
     	</ul>
   </div>
 </nav>
