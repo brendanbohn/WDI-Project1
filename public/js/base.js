@@ -2,26 +2,48 @@ console.log('Sanity check, client-side JS is working.');
 
 
 var initAutocomplete = function() {
-	//Searchbox
+	
+	  var Marker;
+	  var newMarker;
+		var place;
+	  var infowindow;
+	  var contentString;
 
+	//Searchbox
 	var searchBox = new google.maps.places.SearchBox(document.getElementById("autocomplete"));
 
-	//	Need to set bias to current city and business type to bars only
+
+		//Need to set bias to current city and business type to bars only!!!
+
+	  	// Listen for the event fired when the user selects a prediction and retrieve
+	  	searchBox.addListener('places_changed', function () {
+	    	var places = searchBox.getPlaces();
+	    	place = places[0];
+	    	console.log("The place is: ", place);
+	    	console.log(place.geometry.location.lat);
+	    	if (places.length === 0) {
+	    		alert('Place not found');
+          //set alert for "NOT FOUND!"
+	    	}
+		});
 
 };
 
 
 $(document).ready(function(){
 		
-	initAutocomplete();
+initAutocomplete();
 
 // CREATE A NEW USER
-	$('#signup-form').submit(function(e){
+	$('#signup-form').on('submit', function (e){
+		console.log('clicked submit');
 		e.preventDefault();
 		console.log('Prevented default on the sign-up form.');
 		var userData = $('#signup-form').serialize();
+		console.log(userData);
+	});
 
-		$.ajax({
+/*	$.ajax({
 			url: '/api/users',
 			type: "POST",
 			data: userData,
@@ -33,17 +55,22 @@ $(document).ready(function(){
 		.fail(function(data) {
 			alert("Failed to post");
 		});
-	});
+	});*/
 
 
 // POST A TRIP
 	$('#trip-form').submit(function(e){
 		e.preventDefault();
+		// place = $('#autocomplete').val();
+		console.log(place);
 		// console.log('Prevented default on the trip submit form');
+		$('#trip-name').val(place.name);
+		$('#trip-lat').val(place.geometry.location.lat);
+		$('#trip-lng').val(place.geometry.location.lng);
 		var tripData = $('#trip-form').serialize();
 		console.log('Before the ajax post: ', tripData);
 
-		$.ajax({
+/*		$.ajax({
 			url: '/api/posts',
 			type: "POST",
 			data: tripData
@@ -58,7 +85,7 @@ $(document).ready(function(){
 		})
 		.fail(function(data) {
 			alert("Failed to post");
-		});
+		});*/
 	});
 
 	// DELETE A TRIP
@@ -70,7 +97,19 @@ $(document).ready(function(){
 	  	console.log(postId);
 			var deletedPost = $(this).closest('div.trip-post');
 			console.log(deletedPost);
-			$(deletedPost).empty();
+			//$(deletedPost).empty();
+			$.ajax({
+				url:'/posts/' + postId,
+				type: "DELETE"
+			})
+			.done(function(data) {
+				console.log(data);
+				$(deletedPost).remove();
+				console.log("post has been deleted");
+			})
+			.fail(function(data) {
+				console.log("failed to delete post");
+			});
 		});
 
 });

@@ -2,11 +2,14 @@
 
 // REQUIREMENTS //
 var express = require("express");
+var session = require('express-session');
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
 var db = require("./models/index");
+var User = require('./models/user');
+var Post = require('./models/post');
 // google maps api
 require('dotenv').load();
 var GOOGLE_MAPS_KEY = process.env.GOOGLE_MAPS_KEY;
@@ -16,6 +19,12 @@ var GOOGLE_MAPS_KEY = process.env.GOOGLE_MAPS_KEY;
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+  saveUninitialized: true,
+  resave: true,
+  secret: 'SuperSecretCookie',
+  cookie: { maxAge: 24 * 60 * 60 * 1000 }
+}));
 
 
 // TEST 
@@ -37,7 +46,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // GET route for the root url
 app.get('/', function(req,res){
-	res.render('index', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+	res.render('explore', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 });
 
 // GET route for the map url
@@ -67,27 +76,37 @@ app.post('/api/posts', function(req, res) {
 		res.json(post);
 	});
 });
-// user POST route
-app.post('/api/users', function(req,res){
-	var user = req.body;
-	console.log('user: ', user);
-	User.createSecure(user.name, user.username, user.password, user.email, user.location, user.bio, user.img, function(err,user){
-			//db.User.create(req.body, function(err, user){
-		console.log("user request went through: ", user);
-		if (err) console.log('ermagerd', err);
-		res.json(user);
-	});
-});
 
+// create a user 
+app.post('/api/users', function(req, res) {
+  console.log(req.body);
+  User.createSecure(req.body.email, req.body.password, function (err, newUser) {
+  	console.log('new secure User created.');
+    req.session.userId = newUser._id;
+    console.log(req.session.userId);
+    res.redirect('/profile');
+  });
+});
 
 // DELETE
 
-app.delete('/posts/:_id', function(req, res) {
+/*app.delete('/posts/:_id', function(req, res) {
 	console.log('post id is ', req.params._id);
 	db.Post.find({
 		_id: req.params._id
 	}).remove(function(err, post) {
 		console.log("post deleted");
+		res.json("The post is gone");
+	});
+});*/
+
+app.delete('/posts/:id', function(req, res) {
+	console.log('delete this post: ', req.params.id);
+	db.Post.findOne({
+		_id: req.params.id
+	}).remove(function(err, post) {
+		if (err) console.log(err);
+		// console.log("post deleted: ", post._id, post.postBody);
 		res.json("The post is gone");
 	});
 });
