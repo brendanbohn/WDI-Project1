@@ -68,7 +68,7 @@ app.get('/profile', function (req,res){
 	// console.log("session user in profile" ,req.session.user);
 	db.Post.find({}, function(err, posts) {
 		if(err) console.log(err);
-		console.log("session user is: ",req.session.user);
+		console.log("session user is: ", req.session.user);
 		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY, user: req.session.user});
 	});
 });
@@ -98,7 +98,6 @@ app.post('/api/posts', function (req, res) {
 				console.log("Error: ", err);
 
 		console.log("post request went through", post);
-		console.log(user.username);
 		res.json(post);
 	});
 });
@@ -141,6 +140,7 @@ app.delete('/posts/:id', function(req, res) {
 		if (err) console.log(err);
 		// console.log("post deleted: ", post._id, post.postBody);
 		res.json("The post is gone");
+		// if 
 	});
 });
 

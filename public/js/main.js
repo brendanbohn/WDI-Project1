@@ -147,10 +147,10 @@ $(document).ready(function(){
 		$.ajax({
 			url: '/api/posts',
 			type: "POST",
-			data: tripData,
-		})
+			data: tripData
+		}, function(output) { console.log( output); } )
 		.done(function(data) {
-			// console.log("AJAX response: made a new post", data);
+			console.log("Server returned the data: ", data);
 			var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data.img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data.location+"</h3><p>"+data.description+"</p><p>"+data.date+"<button data-id="+data._id+" type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></p></div></div>";
 			// console.log(postHtml);
 			$("#tripStream").prepend(postHtml);
