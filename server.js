@@ -37,12 +37,12 @@ app.get('/', function(req,res){
 	res.render('explore', {GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 });
 
-// users api
+// GET users api
 app.get('/api/users', function (req,res) {
 
 });
 
-// posts api
+// GET posts api
 app.get('/api/posts', function (req,res) {
 /*	db.Post.find({}, function(err, posts) {
 		if(err) console.log(err);
@@ -73,14 +73,14 @@ app.get('/profile', function (req,res){
 	});
 });
 
-// check auth current user auth
+// GET check auth current user auth
 
 app.get('/current-user', function (req, res) {
 	// console.log(req.session.user);
 	res.json({user: req.session.user});
 });
 
-// logout user
+// GET logout user
 
 app.get('/logout', function (req, res) {
 	req.session.user = null;

@@ -77,11 +77,12 @@ $(document).ready(function(){
 		console.log('Prevented default on the sign-up form.');
 		// serialize the form data
 		var userData = $(this).serialize();
-		// console.log(userData);
+		console.log("The data from the signup form is: ", userData);
 		// send data to server
 		$.ajax({
 			url: '/api/users',
 			type: "POST",
+			data: userData
 		})
 		// if success
 		.done(function(data) {
@@ -157,6 +158,9 @@ $(document).ready(function(){
 			$('#trip-form')[0].reset();
 			$('#searchTextField').val('');
 			// find user by user id and push Post into user.posts
+					//	zelda.consoles.push(nin64);
+					//	zelda.save();
+
 		})
 		.fail(function(data) {
 			alert("Failed to post");
