@@ -26,20 +26,6 @@ app.use(session({
   cookie: { maxAge: 24 * 60 * 60 * 1000 }
 }));
 
-
-// TEST 
-/*db.Post.create({location: 'asdfasdf'}, function(err, data) {
-	console.log('error', err);
-	console.log('data ', data);
-	data.save(function(err) { 
-		console.log(err); 
-	});
-});
-*/
-
-
-
-
 /* 	ROUTES 	*/
 
 
@@ -53,7 +39,19 @@ app.get('/', function(req,res){
 
 // users api
 app.get('/api/users', function (req,res) {
-	// res.json(data);
+
+});
+
+// posts api
+app.get('/api/posts', function (req,res) {
+/*	db.Post.find({}, function(err, posts) {
+		if(err) console.log(err);
+		res.json(posts);*/
+	// console.log("session user in profile" ,req.session.user);
+	db.Post.find({name: req.params.location}, function(err, posts) {
+		if(err) console.log(err);
+		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY, user: req.session.user});
+	});
 });
 
 // GET route for the map url
@@ -67,16 +65,18 @@ app.get('/map', function(req,res){
 
 // GET route for the profile url
 app.get('/profile', function (req,res){
+	// console.log("session user in profile" ,req.session.user);
 	db.Post.find({}, function(err, posts) {
 		if(err) console.log(err);
-		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+		console.log("session user is: ",req.session.user);
+		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY, user: req.session.user});
 	});
 });
 
 // check auth current user auth
 
 app.get('/current-user', function (req, res) {
-	console.log(req.session.user);
+	// console.log(req.session.user);
 	res.json({user: req.session.user});
 });
 
@@ -93,10 +93,12 @@ app.get('/logout', function (req, res) {
 
 // user POST route
 app.post('/api/posts', function (req, res) {
-	// console.log(req.body);
-	db.Post.create(req.body, function(err, post) {
+	console.log(req.body);
+	db.Post.create(req.body, function (err, post) {
+				console.log("Error: ", err);
+
 		console.log("post request went through", post);
-		if (err) console.log('There was an error: ', err);
+		console.log(user.username);
 		res.json(post);
 	});
 });
@@ -116,9 +118,12 @@ app.post('/api/users', function(req, res) {
 // authenticate the user 
 app.post('/login', function (req, res) {
   // call authenticate function to check if password user entered is correct
-  console.log(req.body);
+  // console.log(req.body);
   User.authenticate(req.body.email, req.body.password, function (err, user) {
   		req.session.user = user;
+  		// console.log('session user: ', user);
+  		// console.log('session username: ', user.username);
+  		// console.log(err);
     	res.json(user);
   	});
 });
@@ -126,16 +131,6 @@ app.post('/login', function (req, res) {
 
 
 // DELETE ROUTES
-
-/*app.delete('/posts/:_id', function(req, res) {
-	console.log('post id is ', req.params._id);
-	db.Post.find({
-		_id: req.params._id
-	}).remove(function(err, post) {
-		console.log("post deleted");
-		res.json("The post is gone");
-	});
-});*/
 
 // delete post route
 app.delete('/posts/:id', function(req, res) {

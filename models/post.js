@@ -4,6 +4,8 @@ var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
 	location: {type: String, required: true},
+	lat: {type: Number}, 
+	lng: {type: Number},
 	description: { type: String}, 
   date: { type: String},
   img: {type: String},
@@ -11,6 +13,5 @@ var postSchema = new Schema({
 });
 
 var Post = mongoose.model('Post', postSchema);
-
 
 module.exports = Post;

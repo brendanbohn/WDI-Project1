@@ -9,6 +9,7 @@ function checkAuth() {
     // shows the full navbar if user is logged in
     if (data.user) {
     $('.logged-in').show();
+    $('.main').hide();
   	} else {
     // hides the full navbar if user is loggged in
     	$('.logged-in').hide();
@@ -22,20 +23,13 @@ var initAutocomplete = function() {
 		var place;
 	//Searchbox
 	var searchBox = new google.maps.places.SearchBox(document.getElementById('searchTextField'));
-		//Need to set bias to current city and business type to bars only!!!
-	  	// Listen for the event fired when the user selects a prediction and retrieve
+	// Listen for the event fired when the user selects a prediction and retrieve
 	searchBox.addListener('places_changed', function () {
 	  var places = searchBox.getPlaces();
 	  place = places[0];
-	  // console.log("The place is: ", place);
-	  // console.log("The places lat is: ", place.geometry.location.lat());
-	  // console.log("The places lng is: ", place.geometry.location.lng());
-	  // console.log('The trip location is: ', place.formatted_address);
-	  if (document.getElementById('trip-location') && document.getElementById('trip-lat') && document.getElementById('trip-lng')) {
-	  	document.getElementById('trip-location').value = place.formatted_address;
-    	document.getElementById('trip-lat').value = place.geometry.location.lat();
-    	document.getElementById('trip-lng').value = place.geometry.location.lng();
-  	}
+	  document.getElementById('trip-location').value = place.formatted_address;
+    document.getElementById('trip-lat').value = place.geometry.location.lat();
+    document.getElementById('trip-lng').value = place.geometry.location.lng();
 	  if (places.length === 0) {
 	  	alert('Place not found');
       // set alert for "NOT FOUND!"
@@ -59,19 +53,20 @@ $(document).ready(function(){
 	$('#explore-btn').click(function() {
 		// e.preventDefault();
 		console.log('The explore button was clicked.');
-/*		$.ajax({
-			url: '/api/posts'+,
+		var exploreInput = $('#searchTextField').val();
+		console.log(exploreInput);
+		$.ajax({
+			url: '/api/posts/'+exploreInput,
 			type: "GET",
-			data: searchData,
 		})
 		// if success
 		.done(function(data) {
-			console.log(data);
+			console.log('Server returned this data to the client: ', data);
 		})
 		// if failure
 		.fail(function(data) {
 			alert("Failed to post");
-		});*/
+		});
 	});
 
 
@@ -87,7 +82,6 @@ $(document).ready(function(){
 		$.ajax({
 			url: '/api/users',
 			type: "POST",
-			data: userData,
 		})
 		// if success
 		.done(function(data) {
@@ -134,8 +128,7 @@ $(document).ready(function(){
 		})
 		// if succesffully logged out
 		.done(function (data) {
-			console.log("logged out");
-			$('.logged-in').hide();
+			console.log("User is logged out.");
 			window.location.href= "/";
 		})
 		// if failure
@@ -147,10 +140,10 @@ $(document).ready(function(){
 /* 	LOG A NEW TRIP 	*/
 	$('#trip-form').submit(function (e) {
 		e.preventDefault();
-		// console.log('Prevented default on the sign-up form.');
+		console.log('Prevented default on the sign-up form.');
 		// serialize the form data
 		var tripData = $(this).serialize();
-		// console.log('The data from the trip form is: ', tripData);
+		console.log('The data from the trip form is: ', tripData);
 		$.ajax({
 			url: '/api/posts',
 			type: "POST",
