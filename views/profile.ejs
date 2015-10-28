@@ -76,10 +76,10 @@
 <!-- Voyages -->
 
 				<div id="tripStream">
-					<% if (posts.length !== 0 ) {%>
-					<% for (var i=posts.length-1; i>=0; i--) {%>
-					<div class="trip-post" id="<%=posts._id%>">
-					<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=posts[i].location%></h3><p><%=posts[i].description%></p><p><%=posts[i].date%><button data-id="<%= posts[i]._id %>" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div>
+					<% if (user.posts.length !== 0 ) {%>
+					<% for (var i=user.posts.length-1; i>=0; i--) {%>
+					<div class="trip-post" id="<%=user.posts._id%>">
+					<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=user.posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=user.posts[i].location%></h3><p><%=user.posts[i].description%></p><p><%=user.posts[i].date%><button data-id="<%= user.posts[i]._id %>" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div>
 					</div>
 					<%}%>
 					<%} else {%>
