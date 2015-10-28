@@ -1,40 +1,6 @@
 // Make sure JS is working on the client
 console.log('The client-side JS is working.');
 
-/* 	AUTOCOMPLETE SEARCHBOX 	*/
-
-
-/*	// creates a function called initAutocomplete
-	var initAutocomplete = function() {
-		
-		  var Marker;
-		  var newMarker;
-			var place;
-		  var infowindow;
-		  var contentString;
-	
-		//Searchbox
-		if (document.getElementById("autocomplete")) {
-			var searchBox = new google.maps.places.SearchBox(document.getElementById('autocomplete'));
-			// Need to set bias cities, states, etc.
-
-			// Listen for the event fired when the user selects a prediction and retrieve
-			searchBox.addListener('places_changed', function () {
-				var places = searchBox.getPlaces();
-				place = places[0];
-				console.log("The place is: ", place);
-				console.log(place.geometry.location.lat);
-				if (places.length === 0) {
-					alert('Place not found');
-			    //set alert for "NOT FOUND!"
-				}
-			});
-		}
-	};
-	// calls the initAutocomplete created above
-	initAutocomplete();*/
-
-
 
 /* 	USER AUTHORIZATION 	*/
 
@@ -56,14 +22,15 @@ function checkAuth() {
 $(document).ready(function(){
 
 /*	 AUTOCOMPLETE 	*/
-if (document.getElementById('searchTextField')) {
-	var input = document.getElementById('searchTextField');
-	autocomplete = new google.maps.places.Autocomplete(input);
-	
-	google.maps.event.addListener(autocomplete, 'places_changed', function() {
-		var place = autocomplete.getPlace();
-	});
-}
+	if (document.getElementById('searchTextField')) {
+		var input = document.getElementById('searchTextField');
+		var options = {types: ['(cities)']};
+		autocomplete = new google.maps.places.Autocomplete(input, options);
+		
+		google.maps.event.addListener(autocomplete, 'places_changed', function() {
+			var place = autocomplete.getPlace();
+		});
+	}
 
 /*	AUTHORIZATION 	*/
 

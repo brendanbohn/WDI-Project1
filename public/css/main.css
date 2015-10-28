@@ -11,6 +11,7 @@ html, body {
 
 /* 	EXPLORE 	*/
 .main {
+	width: 100%;
 	margin: 0 auto;
 	text-align: center;
 	background: url('http://static3.businessinsider.com/image/54cfea306bb3f7d1181b774b/10-travel-destinations-that-are-trending-right-now.jpg');
