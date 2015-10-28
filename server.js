@@ -105,7 +105,7 @@ app.post('/api/posts', function (req, res) {
 // create a user 
 app.post('/api/users', function(req, res) {
   console.log(req.body);
-  User.createSecure(req.body.username, req.body.email, req.body.password, req.body.location, req.body.bio, req.body.img, function (err, user) {
+  User.createSecure(req.body.username, req.body.email, req.body.password, req.body.bio, req.body.location, req.body.img, function (err, user) {
   	console.log('new secure User created.');
     req.session.user = user;
     console.log(req.session.user);
