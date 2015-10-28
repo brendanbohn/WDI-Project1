@@ -14,7 +14,7 @@ var UserSchema = mongoose.Schema({
   posts: [{type: Schema.Types.ObjectId, ref: 'Post'}]
 });
 
-UserSchema.statics.createSecure = function (email, password, callback) {
+UserSchema.statics.createSecure = function (username, email, password, callback) {
   // `this` references our User model
   // store it in variable `UserModel` because `this` changes context in nested callbacks
 
@@ -27,6 +27,7 @@ UserSchema.statics.createSecure = function (email, password, callback) {
 
       // create the new user (save to db) with hashed password
       UserModel.create({
+        username: username,
         email: email,
         passwordDigest: hash,
       }, callback);

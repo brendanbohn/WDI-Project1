@@ -14,14 +14,14 @@ html, body {
 	width: 100%;
 	margin: 0 auto;
 	text-align: center;
-	background: url('http://static3.businessinsider.com/image/54cfea306bb3f7d1181b774b/10-travel-destinations-that-are-trending-right-now.jpg');
+	background: url('http://i.imgur.com/zgCk9B8.jpg');
 	background-size: cover;
-	background-position: top center;
-	height: 100%;
+	background-position: bottom center;
+	height: 75%;
 	position: relative;
 }
 .main h1 {
-	padding: 100px 0 0 0;
+	padding: 150px 0 0 0;
 	font-size: 28;
 	color: white;
 	font-size: 60px;
@@ -48,10 +48,6 @@ html, body {
 	color: white;
 	background-color: rgba(0,0,0,.5);
 }
-#explore-box {
-	height: 200px;
-	background-color: rgba(0,0,0,.5);
-}
 #signup-form,
 #signin-form {
 	margin: 25px;
@@ -67,19 +63,11 @@ html, body {
 .navbar-center {
 	margin: 25px 0 0 0;
 }
-#explore-search {
-	background-color: rgba(255,255,255,.8);
-	color: black;
-}
-#explore-search input {
-	width: 500px;
-}
 .modal h2 {
 	text-align: center;
 }
+#explore-search {
 
-#explore-search-title {
-	color: white;
 }
 
 /*	PROFILE PAGE 	*/
@@ -99,9 +87,6 @@ h4 {
 }
 #profile-stream {
 	margin: 85px 0 0 0;
-}
-#explore-search-title {
-	margin: 100px 0 0 0;
 }
 
 /* create new post */

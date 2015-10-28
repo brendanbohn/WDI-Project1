@@ -9,22 +9,33 @@
 
 <%- include _nav.ejs %>
 
-<div class="main">
-  <h1>Welcome to Captain's Log</h1>
-  <p>Your go-to site for organizing and tracking your trips.</p>
-  <div>
-    <a href="#" data-toggle="modal" data-target=".signup-form-modal-lg" class="sign-buttons"><span id="signup-button">Sign Up</span></a>
-    <a href="#" data-toggle="modal" data-target=".signin-form-modal-lg" class="sign-buttons"><span id="signin-button">Sign In</span></a>
+<!-- WELCOME DIV -->
+
+  <div class="main">
+    <h1>Welcome to Captain's Log</h1>
+    <p>Your go-to site for tracking your trips and exploring others.</p>
+    <div>
+      <a href="#" data-toggle="modal" data-target=".signup-form-modal-lg" class="sign-buttons"><span id="signup-button">Sign Up</span></a>
+      <a href="#" data-toggle="modal" data-target=".signin-form-modal-lg" class="sign-buttons"><span id="signin-button">Sign In</span></a>
+    </div>
   </div>
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2" id="explore-box">
-        <h2 id="explore-search-title">Explore</h2>
-        <div class="col-md-8 col-md-offset-2">
-          <input type="text" class="form-control" id="autocomplete" placeholder="Location" name="location" required>
+
+<!-- EXPLORE DIV -->
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" id="explore-box">
+      <h2 id="explore-search-title" class="text-center">Explore Locations</h2>
+      <div class="col-md-8 col-md-offset-2">
+        <!-- /input-group -->
+        <div class="input-group" id="explore-input-group">
+          <input type="text" class="form-control" id="searchTextField" placeholder="Location" name="location" required>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" id="explore-btn">Explore!</button>
+            </span>
         </div>
       </div>
+    </div>
   </div>
-</div>
 
 <!-- SIGN UP MODAL -->
 

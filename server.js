@@ -95,19 +95,20 @@ app.get('/logout', function (req, res) {
 app.post('/api/posts', function (req, res) {
 	// console.log(req.body);
 	db.Post.create(req.body, function(err, post) {
-		console.log("post request went through",post);
-		if (err) console.log('ermagerd', err);
+		console.log("post request went through", post);
+		if (err) console.log('There was an error: ', err);
 		res.json(post);
 	});
 });
 
 // create a user 
 app.post('/api/users', function(req, res) {
-  // console.log(req.body);
-  User.createSecure(req.body.email, req.body.password, function (err, user) {
+  console.log(req.body);
+  User.createSecure(req.body.username, req.body.email, req.body.password, function (err, user) {
   	console.log('new secure User created.');
     req.session.user = user;
-    // console.log(req.session.user);
+    console.log(req.session.user);
+    console.log(user);
     res.json(user);
   });
 });

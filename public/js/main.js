@@ -1,9 +1,7 @@
 // Make sure JS is working on the client
 console.log('The client-side JS is working.');
 
-
 /* 	USER AUTHORIZATION 	*/
-
 // checks if user is logged in
 function checkAuth() {
 	$.get('/current-user', function (data) {
@@ -18,27 +16,66 @@ function checkAuth() {
   });
 }
 
-// runs once page is loaded
+/* 	AUTOCOMPLETE SEARCHBOX 	*/
+// creates a function for autocompleting the searchbox
+var initAutocomplete = function() {
+		var place;
+	//Searchbox
+	var searchBox = new google.maps.places.SearchBox(document.getElementById('searchTextField'));
+		//Need to set bias to current city and business type to bars only!!!
+	  	// Listen for the event fired when the user selects a prediction and retrieve
+	searchBox.addListener('places_changed', function () {
+	  var places = searchBox.getPlaces();
+	  place = places[0];
+	  // console.log("The place is: ", place);
+	  // console.log("The places lat is: ", place.geometry.location.lat());
+	  // console.log("The places lng is: ", place.geometry.location.lng());
+	  // console.log('The trip location is: ', place.formatted_address);
+	  if (document.getElementById('trip-location') && document.getElementById('trip-lat') && document.getElementById('trip-lng')) {
+	  	document.getElementById('trip-location').value = place.formatted_address;
+    	document.getElementById('trip-lat').value = place.geometry.location.lat();
+    	document.getElementById('trip-lng').value = place.geometry.location.lng();
+  	}
+	  if (places.length === 0) {
+	  	alert('Place not found');
+      // set alert for "NOT FOUND!"
+	  }
+	});
+};
+
+/* 	ONCE PAGE IS LOADED 	*/
+
 $(document).ready(function(){
 
-/*	 AUTOCOMPLETE 	*/
+/*	AUTHORIZATION 	*/
+	checkAuth();
+
+/* 	AUTOCOMPLETE 	*/
+	// checks for an element with id="searchTextField" before executing the initAutocomplete function
 	if (document.getElementById('searchTextField')) {
-		var input = document.getElementById('searchTextField');
-		var options = {types: ['(cities)']};
-		autocomplete = new google.maps.places.Autocomplete(input, options);
-		
-		google.maps.event.addListener(autocomplete, 'places_changed', function() {
-			var place = autocomplete.getPlace();
-		});
+		initAutocomplete();
 	}
 
-/*	AUTHORIZATION 	*/
-
-	checkAuth();
+	$('#explore-btn').click(function() {
+		// e.preventDefault();
+		console.log('The explore button was clicked.');
+/*		$.ajax({
+			url: '/api/posts'+,
+			type: "GET",
+			data: searchData,
+		})
+		// if success
+		.done(function(data) {
+			console.log(data);
+		})
+		// if failure
+		.fail(function(data) {
+			alert("Failed to post");
+		});*/
+	});
 
 
 /*	CREATE A NEW USER 	*/
-
 	// on sumbit of the signup form
 	$('#signup-form').submit(function(e){
 		e.preventDefault();
@@ -52,7 +89,7 @@ $(document).ready(function(){
 			type: "POST",
 			data: userData,
 		})
-		// if sucess
+		// if success
 		.done(function(data) {
 			$('#signup-form-modal').modal('hide');
 			$('.logged-in').show();
@@ -64,17 +101,14 @@ $(document).ready(function(){
 		});
 	});
 
-
-
 /* 	LOGIN USER 	*/
-
 	//when sign in form submit button is clicked
 	$('#signin-form').submit(function(e){
 		e.preventDefault();
-		console.log('Prevented default on the sign-in form.');
+		// console.log('Prevented default on the sign-in form.');
 		// serialize the form data
 		var userData = $(this).serialize();
-		console.log("User data from the sign-in form is: ", userData);
+		// console.log("User data from the sign-in form is: ", userData);
 		$.ajax({
 			url: '/login',
 			type: "POST",
@@ -91,10 +125,7 @@ $(document).ready(function(){
 		});
 	});
 
-
-
 /* 	LOGOUT USER 	*/
-
 	// when logout button is clicked (it's in the settings dropdown)
 	$('#logout-btn').click(function(){
 		$.ajax ({
@@ -113,6 +144,87 @@ $(document).ready(function(){
 		});
 	});
 
+/* 	LOG A NEW TRIP 	*/
+	$('#trip-form').submit(function (e) {
+		e.preventDefault();
+		// console.log('Prevented default on the sign-up form.');
+		// serialize the form data
+		var tripData = $(this).serialize();
+		// console.log('The data from the trip form is: ', tripData);
+		$.ajax({
+			url: '/api/posts',
+			type: "POST",
+			data: tripData,
+		})
+		.done(function(data) {
+			// console.log("AJAX response: made a new post", data);
+			var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data.img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data.location+"</h3><p>"+data.description+"</p><p>"+data.date+"<button data-id="+data._id+" type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></p></div></div>";
+			// console.log(postHtml);
+			$("#tripStream").prepend(postHtml);
+			$('#trip-form')[0].reset();
+			$('#searchTextField').val('');
+			// find user by user id and push Post into user.posts
+		})
+		.fail(function(data) {
+			alert("Failed to post");
+		});
+	});
 
+/* 	DELETE A TRIP 	*/
+	$('#tripStream').on('click', '.close', function(e) {
+	 	e.preventDefault();
+	 	//console.log($(this));
+	 	var post = $(this).data();
+	 	var postId = $(this).data().id;
+	 	// console.log(postId);
+		var deletedPost = $(this).closest('div.trip-post');
+		// console.log(deletedPost);
+		//$(deletedPost).empty();
+		$.ajax({
+			url:'/posts/' + postId,
+			type: "DELETE"
+		})
+		.done(function(data) {
+			// console.log(data);
+			$(deletedPost).remove();
+			// console.log("post has been deleted");
+		})
+		.fail(function(data) {
+			alert("failed to delete post");
+		});
+	});
 
 });
+
+
+
+
+
+
+/*	 AUTOCOMPLETE 	graveyard 	*/
+
+/*	if (document.getElementById('searchTextField')) {
+		var input = document.getElementById('searchTextField');
+		var options = {types: ['(cities)']};
+		autocomplete = new google.maps.places.Autocomplete(input, options);
+		
+		google.maps.event.addListener(autocomplete, 'places_changed', function() {
+			var place = autocomplete.getPlace();
+			console.log(place);
+		});
+	}*/
+
+/*	function initialize() {
+	    var input = document.getElementById('searchTextField');
+	    var options = {types: ['(cities)']};
+	    var autocomplete = new google.maps.places.Autocomplete(input, options);
+	    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+	        var place = autocomplete.getPlace();
+	        document.getElementById('trip-lat').value = place.geometry.location.lat();
+	        document.getElementById('trip-lng').value = place.geometry.location.lng();
+	        alert("Initialize function is working!");
+	        alert(place.name);
+	       	alert(place.address_components[0].long_name);
+	    });
+	}
+	initialize();*/

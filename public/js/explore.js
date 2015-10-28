@@ -1,20 +1,15 @@
 // console.log('Sanity check, client-side JS is working.');
 
 
-/*var initAutocomplete = function() {
-	
+var initAutocomplete = function() {
 	  var Marker;
 	  var newMarker;
 		var place;
 	  var infowindow;
 	  var contentString;
-
 	//Searchbox
 	var searchBox = new google.maps.places.SearchBox(document.getElementById("autocomplete"));
-
-
 		//Need to set bias to current city and business type to bars only!!!
-
 	  	// Listen for the event fired when the user selects a prediction and retrieve
 	  	searchBox.addListener('places_changed', function () {
 	    	var places = searchBox.getPlaces();
@@ -26,10 +21,9 @@
           //set alert for "NOT FOUND!"
 	    	}
 		});
-
 };
 
-initAutocomplete();*/
+initAutocomplete();
 
 // checks if user is logged in
 function checkAuth() {
