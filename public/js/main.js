@@ -53,9 +53,10 @@ $(document).ready(function(){
 /* 	EXPLORE SEARCH 	*/
 	$('#explore-btn').click(function() {
 		// e.preventDefault();
-		console.log('The explore button was clicked.');
+		// console.log('The explore button was clicked.');
 		var exploreInput = $('#explore-search-input').val();
-		console.log(exploreInput);
+		// console.log(exploreInput);
+		$('#explore-results').empty();
 		$.ajax({
 			url: '/api/explore/'+exploreInput,
 			type: "GET",
@@ -63,9 +64,14 @@ $(document).ready(function(){
 		// if success
 		.done(function(data) {
 			console.log('Server returned this data to the client: ', data);
+			if (data.length>0) {
 			for (var i=0; i<data.length; i++) {
 				var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data[i].img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data[i].location+"</h3><p>"+data[i].description+"</p><p>"+data[i].date+"<span class='pull-right'>"+data[i].username+"</p></div></div>";
 				$('#explore-results').prepend(postHtml);
+				$('#explore-search-input').val();
+			}
+			} else {
+				$('#explore-results').prepend("<p class='text-center'>No posts match your search. Try another search.");
 			}
 		})
 		// if failure
