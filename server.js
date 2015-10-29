@@ -54,6 +54,7 @@ app.get('/api/explore/:search', function (req,res) {
 	    .exec(function(err, results) {
 	        // callback
 	        console.log(results);
+	        res.json(results);
 	    });
 });
 

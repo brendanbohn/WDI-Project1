@@ -63,6 +63,10 @@ $(document).ready(function(){
 		// if success
 		.done(function(data) {
 			console.log('Server returned this data to the client: ', data);
+			for (var i=0; i<data.length; i++) {
+				var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data[i].img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data[i].location+"</h3><p>"+data[i].description+"</p><p>"+data[i].date+"<span class='pull-right'>"+data[i].username+"</p></div></div>";
+				$('#explore-results').prepend(postHtml);
+			}
 		})
 		// if failure
 		.fail(function(data) {
