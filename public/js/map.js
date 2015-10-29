@@ -6,9 +6,9 @@ console.log('Sanity check, client-side JS is working.');
 function initMap(position) {
   // sets a latitude and longitude]
   if (position) {
-    var lat = position.coords.latitude
-    var lng = position.coords.longitude    
-    var myLatLng = {lat: lat, lng: lng}
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    var myLatLng = {lat: lat, lng: lng};
   } else {
     var myLatLng = {lat: 37.78, lng: -122.44};  
   }
@@ -28,7 +28,7 @@ function initMap(position) {
       var postLatLng = {lat: lat, lng: lng};
       console.log(postLatLng);
       // var icon = "/js/Pin.png";
-      // contentString = '<div class="trip-post" id="'+user.posts._id+'"><div class="media text-left"><div class="media-left"><img class="media-object" src="'+user.posts[i].img+'" alt="..."></div><div class="media-body"><h3 class="media-heading">'+user.posts[i].location+'</h3><p>'+user.posts[i].description+'</p><p>'+user.posts[i].date+'<button data-id="'+user.posts[i]._id+'" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div></div>';
+      contentString = '<div class="trip-post" id="'+data.user.posts._id+'"><div class="media text-left"><div class="media-left"><img class="media-object" src="'+data.user.posts[i].img+'" alt="..."></div><div class="media-body"><h3 class="media-heading">'+data.user.posts[i].location+'</h3><p>'+data.user.posts[i].description+'</p><p>'+data.user.posts[i].date+'</p></div></div></div>';
 
       // Create a marker for each place.
         var marker =  new google.maps.Marker({
@@ -36,8 +36,14 @@ function initMap(position) {
         title: data.user.posts[i].location,
         position: postLatLng
       });
-      // infowindow = new google.maps.InfoWindow(); 
-      // listenMarker(Marker, contentString);   
+          // creates an info window
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      // opens the infowindow when the marker is clicked
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });   
     }
   });
 }
