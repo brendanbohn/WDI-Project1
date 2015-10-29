@@ -3,6 +3,11 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
+/* 	MAP 	*/
+#map {
+	height: 100%;
+	width: 100%;
+}
 /* 	NAVBAR 	*/
 
 /*.navbar {
@@ -77,6 +82,7 @@ html, body {
 
 #profile-picture {
 	height: 200px;
+	width: 200px;
 	margin: 125px 0 40px 0;
 }
 .myMap {
@@ -91,10 +97,6 @@ h4 {
 #profile-stream {
 	margin: 85px 0 0 0;
 }
-#map {
-	height: 100%;
-	width: 100%;
-}
 /* create new post */
 
 #log-voyage-stream {
@@ -103,7 +105,9 @@ h4 {
 }
 
 /* posts */
-
+p {
+	margin: 10px 0;
+}
 .trip-post {
 	margin: 50px 0;
 }
@@ -115,9 +119,6 @@ h4 {
 }
 .media-heading {
 	margin: 15px 0 0 0;
-}
-.media-body {
-	padding: 0 0 0 20px;
 }
 #trip-form {
 	margin: 60px 0 0 0;

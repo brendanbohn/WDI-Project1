@@ -42,11 +42,23 @@ app.get('/api/users', function (req,res) {
 
 });
 
+//GET for explore search
+app.get('/api/explore/:search', function (req,res) {
+	console.log(req.params.search);
+	db.Post
+	    .find(
+	        { $text : { $search : req.params.search } }, 
+	        { score : { $meta: "textScore" } }
+	    )
+	    .sort({ score : { $meta : "textScore" } })
+	    .exec(function(err, results) {
+	        // callback
+	        console.log(results);
+	    });
+});
+
 // GET posts api
 app.get('/api/posts', function (req,res) {
-/*	db.Post.find({}, function(err, posts) {
-		if(err) console.log(err);
-		res.json(posts);*/
 	// console.log("session user in profile" ,req.session.user);
 	db.Post.find({name: req.params.location}, function(err, posts) {
 		if(err) console.log(err);
@@ -54,24 +66,22 @@ app.get('/api/posts', function (req,res) {
 	});
 });
 
+// GET route for the map url
+app.get('/map', function(req,res){
+	db.Post.find({}, function(err, posts) {
+		if(err) console.log(err);
+		res.render('map', {posts:posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+	});
+});
 
-// for setting marks on map
+// GET route for setting marks on map
 app.get('/api/marks', function (req,res) {
 db.User.findOne({_id: req.session.userId})
 	.populate('posts')
 		.exec(function(err, user) {
 			if(err) console.log("error was: ", err);
-			console.log("User populated: ", user);
+			// console.log("User populated: ", user);
 			res.json({user: user, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
-	});
-});
-
-// GET route for the map url
-
-app.get('/map', function(req,res){
-	db.Post.find({}, function(err, posts) {
-		if(err) console.log(err);
-		res.render('map', {posts:posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 	});
 });
 
@@ -83,12 +93,12 @@ app.get('/profile', function (req,res){
 		console.log("session user is: ", req.session.user);
 		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY, user: req.session.user});
 	});*/
-	console.log("The current user is: ", req.session.userId);
+	// console.log("The current user is: ", req.session.userId);
 	db.User.findOne({_id: req.session.userId})
 		.populate('posts')
 		.exec(function(err, user) {
 			if(err) console.log("error was: ", err);
-			console.log("User populated: ", user);
+			// console.log("User populated: ", user);
 			res.render('profile', {user: user, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 		});
 });
@@ -113,7 +123,7 @@ app.get('/logout', function (req, res) {
 
 // user POST route
 app.post('/api/posts', function (req, res) {
-	console.log(req.body);
+	// console.log(req.body);
 	db.Post.create(req.body, function (err, post) {
 		if(err) {
 			console.log(err);
@@ -124,14 +134,14 @@ app.post('/api/posts', function (req, res) {
 				user.save();
 			});
 		}
-		console.log("post request went through", post);
+		// console.log("post request went through", post);
 		res.json(post);
 	});
 });
 
 // create a user 
 app.post('/api/users', function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   User.createSecure(req.body.username, req.body.email, req.body.password, req.body.bio, req.body.location, req.body.img, function (err, user) {
   	//console.log('new secure User created.');
   	req.session.userId = user._id;
@@ -162,7 +172,7 @@ app.post('/login', function (req, res) {
 
 // delete post route
 app.delete('/posts/:id', function(req, res) {
-	console.log('delete this post: ', req.params.id);
+	// console.log('delete this post: ', req.params.id);
 	db.Post.findOne({
 		_id: req.params.id
 	}).remove(function(err, post) {

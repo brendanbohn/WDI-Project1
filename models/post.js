@@ -12,6 +12,7 @@ var postSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
+
 var Post = mongoose.model('Post', postSchema);
 
 module.exports = Post;

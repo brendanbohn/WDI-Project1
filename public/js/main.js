@@ -50,13 +50,14 @@ $(document).ready(function(){
 		initAutocomplete();
 	}
 
+/* 	EXPLORE SEARCH 	*/
 	$('#explore-btn').click(function() {
 		// e.preventDefault();
 		console.log('The explore button was clicked.');
-		var exploreInput = $('#searchTextField').val();
+		var exploreInput = $('#explore-search-input').val();
 		console.log(exploreInput);
 		$.ajax({
-			url: '/api/posts/'+exploreInput,
+			url: '/api/explore/'+exploreInput,
 			type: "GET",
 		})
 		// if success

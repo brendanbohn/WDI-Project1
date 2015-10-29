@@ -22,7 +22,7 @@ UserSchema.statics.createSecure = function (username, email, password, bio, loca
 
   // hash password user enters at sign up
   bcrypt.genSalt(function (err, salt) {
-    console.log('salt: ', salt);  // changes every time
+    // console.log('salt: ', salt);  // changes every time
     bcrypt.hash(password, salt, function (err, hash) {
 
       // create the new user (save to db) with hashed password
@@ -48,7 +48,7 @@ UserSchema.methods.checkPassword = function (password) {
 UserSchema.statics.authenticate = function (email, password, callback) {
  // find user by email entered at log in
  this.findOne({email: email}, function (err, foundUser) {
-   console.log(foundUser);
+   // console.log(foundUser);
 
    // throw error if can't find user
    if (!foundUser) {

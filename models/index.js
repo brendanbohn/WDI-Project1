@@ -14,3 +14,8 @@ db.once('open', function (callback) {
 
 module.exports.Post = require('./post.js');
 module.exports.User = require('./user.js');
+
+// for full text search
+//	db.posts.ensureIndex({ location: 'text', description: 'text', date: 'text'}, {name: 'My post index', weights: {location: 10, description: 2, date: 8}});
+
+// db.ensureIndex()
