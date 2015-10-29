@@ -54,6 +54,18 @@ app.get('/api/posts', function (req,res) {
 	});
 });
 
+
+// for setting marks on map
+app.get('/api/marks', function (req,res) {
+db.User.findOne({_id: req.session.userId})
+	.populate('posts')
+		.exec(function(err, user) {
+			if(err) console.log("error was: ", err);
+			console.log("User populated: ", user);
+			res.json({user: user, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
+	});
+});
+
 // GET route for the map url
 
 app.get('/map', function(req,res){

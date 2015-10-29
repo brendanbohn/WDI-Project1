@@ -20,7 +20,7 @@ function checkAuth() {
 /* 	AUTOCOMPLETE SEARCHBOX 	*/
 // creates a function for autocompleting the searchbox
 var initAutocomplete = function() {
-		var place;
+	var place;
 	//Searchbox
 	var searchBox = new google.maps.places.SearchBox(document.getElementById('searchTextField'));
 	// Listen for the event fired when the user selects a prediction and retrieve
