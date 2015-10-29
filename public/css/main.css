@@ -76,7 +76,6 @@ html, body {
 /*	PROFILE PAGE 	*/
 
 #profile-picture {
-	border-radius: 50%;
 	height: 200px;
 	margin: 125px 0 40px 0;
 }

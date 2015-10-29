@@ -76,14 +76,14 @@
 <!-- Voyages -->
 
 				<div id="tripStream">
-					<% if (user.posts.length !== 0 ) {%>
+					<% if (user.posts.length > 0 ) {%>
 					<% for (var i=user.posts.length-1; i>=0; i--) {%>
 					<div class="trip-post" id="<%=user.posts._id%>">
 					<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=user.posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=user.posts[i].location%></h3><p><%=user.posts[i].description%></p><p><%=user.posts[i].date%><button data-id="<%= user.posts[i]._id %>" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div>
 					</div>
 					<%}%>
 					<%} else {%>
-					<p class="trip-post"> No voyages have been logged yet. </p>
+					<!-- <p class="trip-post"> No voyages have been logged yet. </p> -->
 					<%}%>
 				</div>
 			</div>
