@@ -4,10 +4,18 @@ html {
 	padding: 0;
 }
 body {
+	height: 100%;
 	margin: 0 0 50px 0;
 }
+h2 {
+	text-align: center;
+	margin: 0 0 25px 0;
+}
 p {
-	margin: 10px 0;
+	font-size: 12px;
+}
+.media p {
+	margin: 10px 75px 10px 0;
 }
 /* 	MAP 	*/
 #map {
@@ -25,10 +33,10 @@ p {
 	width: 100%;
 	margin: 0 auto;
 	text-align: center;
-	background: url('http://i.imgur.com/zgCk9B8.jpg');
+	background: url('https://i.imgur.com/zgCk9B8.jpg');
 	background-size: cover;
 	background-position: bottom center;
-	height: 75%;
+	height: 400px;
 	position: relative;
 }
 .main h1 {
@@ -77,11 +85,8 @@ p {
 .modal h2 {
 	text-align: center;
 }
-#explore-search {
-
-}
 #explore-search-title {
-	margin: 100px 0 0 0;
+	margin: 100px 0 25px 0;
 }
 
 /*	PROFILE PAGE 	*/
@@ -105,7 +110,7 @@ h4 {
 
 /*profile stream*/
 #profile-content {
-	margin: 100px 0 0 0;
+	margin: 90px 0 0 0;
 }
 img.media-object {
 	height: 100px;
@@ -133,5 +138,8 @@ h3.media-heading {
 /* create new post */
 #inputDescription {
 	height: 108px;
+}
+#searchTextField {
+	margin: 0 0 25px 0;
 }
 

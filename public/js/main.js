@@ -73,7 +73,7 @@ $(document).ready(function(){
 			}
 			// if there are no items returned from server
 			} else {
-				$('#explore-results').prepend("<p class='text-center'>No posts match your search. Try another search.");
+				$('#explore-results').prepend("<p id='no-results-search-result'>No posts match your search. Try another search.");
 			}
 		})
 		// if failure from server
