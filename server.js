@@ -53,7 +53,7 @@ app.get('/api/explore/:search', function (req,res) {
 	    .sort({ score : { $meta : "textScore" } })
 	    .exec(function(err, results) {
 	        // callback
-	        console.log(results);
+	        // console.log(results);
 	        res.json(results);
 	    });
 });

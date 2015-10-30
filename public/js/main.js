@@ -154,15 +154,18 @@ $(document).ready(function(){
 		e.preventDefault();
 		console.log('Prevented default on the sign-up form.');
 		// serialize the form data
+		console.log($('#inputImageUrl').val());
+		var img = $('#inputImageUrl').val().split("");
+		console.log(img);
 		var tripData = $(this).serialize();
-		console.log('The data from the trip form is: ', tripData);
+		// console.log('The data from the trip form is: ', tripData);
 		$.ajax({
 			url: '/api/posts',
 			type: "POST",
 			data: tripData
 		}, function(output) { console.log( output); } )
 		.done(function(data) {
-			console.log("Server returned the data: ", data);
+			// console.log("Server returned the data: ", data);
 			var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data.img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data.location+"</h3><p>"+data.description+"</p><p>"+data.date+"<button data-id="+data._id+" type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></p></div></div>";
 			// console.log(postHtml);
 			$("#tripStream").prepend(postHtml);
