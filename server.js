@@ -52,15 +52,12 @@ app.get('/api/explore/:search', function (req,res) {
 	    )
 	    .sort({ score : { $meta : "textScore" } })
 	    .exec(function(err, results) {
-	        // callback
-	        // console.log(results);
 	        res.json(results);
 	    });
 });
 
 // GET posts api
 app.get('/api/posts', function (req,res) {
-	// console.log("session user in profile" ,req.session.user);
 	db.Post.find({name: req.params.location}, function(err, posts) {
 		if(err) console.log(err);
 		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY, user: req.session.user});
@@ -81,25 +78,16 @@ db.User.findOne({_id: req.session.userId})
 	.populate('posts')
 		.exec(function(err, user) {
 			if(err) console.log("error was: ", err);
-			// console.log("User populated: ", user);
 			res.json({user: user, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 	});
 });
 
 // GET route for the profile url
 app.get('/profile', function (req,res){
-	// console.log("session user in profile" ,req.session.user);
-/*	db.Post.find({}, function(err, posts) {
-		if(err) console.log(err);
-		console.log("session user is: ", req.session.user);
-		res.render('profile', {posts: posts, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY, user: req.session.user});
-	});*/
-	// console.log("The current user is: ", req.session.userId);
 	db.User.findOne({_id: req.session.userId})
 		.populate('posts')
 		.exec(function(err, user) {
 			if(err) console.log("error was: ", err);
-			// console.log("User populated: ", user);
 			res.render('profile', {user: user, GOOGLE_MAPS_KEY: GOOGLE_MAPS_KEY});
 		});
 });
@@ -107,7 +95,6 @@ app.get('/profile', function (req,res){
 // GET check auth current user auth
 
 app.get('/current-user', function (req, res) {
-	// console.log(req.session.user);
 	res.json({user: req.session.user});
 });
 
@@ -122,33 +109,28 @@ app.get('/logout', function (req, res) {
 
 // POST ROUTES
 
-// user POST route
+// create a post
 app.post('/api/posts', function (req, res) {
-	// console.log(req.body);
 	db.Post.create(req.body, function (err, post) {
 		if(err) {
 			console.log(err);
 		}
 		if(req.session.user) {
+			// push the post ID into the user posts array
 			db.User.findOne({_id:req.session.user._id}, function (err, user) {
 				user.posts.push(post);
 				user.save();
 			});
 		}
-		// console.log("post request went through", post);
 		res.json(post);
 	});
 });
 
 // create a user 
 app.post('/api/users', function(req, res) {
-  // console.log(req.body);
   User.createSecure(req.body.username, req.body.email, req.body.password, req.body.bio, req.body.location, req.body.img, function (err, user) {
-  	//console.log('new secure User created.');
   	req.session.userId = user._id;
     req.session.user = user;
-    //console.log(req.session.user);
-    //console.log(user);
     res.json(user);
   });
 });
@@ -156,31 +138,23 @@ app.post('/api/users', function(req, res) {
 // authenticate the user 
 app.post('/login', function (req, res) {
   // call authenticate function to check if password user entered is correct
-  // console.log(req.body);
   User.authenticate(req.body.email, req.body.password, function (err, user) {
   		req.session.userId = user._id;
   		req.session.user = user;
-  		// console.log('session user: ', user);
-  		// console.log('session username: ', user.username);
-  		// console.log(err);
     	res.json(user);
   	});
 });
-
 
 
 // DELETE ROUTES
 
 // delete post route
 app.delete('/posts/:id', function(req, res) {
-	// console.log('delete this post: ', req.params.id);
 	db.Post.findOne({
 		_id: req.params.id
 	}).remove(function(err, post) {
 		if (err) console.log(err);
-		// console.log("post deleted: ", post._id, post.postBody);
 		res.json("The post is gone");
-		// if 
 	});
 });
 

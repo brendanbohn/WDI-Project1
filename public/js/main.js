@@ -2,10 +2,10 @@
 console.log('The client-side JS is working.');
 
 /* 	USER AUTHORIZATION 	*/
+
 // checks if user is logged in
 function checkAuth() {
 	$.get('/current-user', function (data) {
-		// console.log(data);
     // shows the full navbar if user is logged in
     if (data.user) {
     $('.logged-in').show();
@@ -18,6 +18,7 @@ function checkAuth() {
 }
 
 /* 	AUTOCOMPLETE SEARCHBOX 	*/
+
 // creates a function for autocompleting the searchbox
 var initAutocomplete = function() {
 	var place;
@@ -27,6 +28,7 @@ var initAutocomplete = function() {
 	searchBox.addListener('places_changed', function () {
 	  var places = searchBox.getPlaces();
 	  place = places[0];
+	  // sets values for the hidden form fields
 	  document.getElementById('trip-location').value = place.formatted_address;
     document.getElementById('trip-lat').value = place.geometry.location.lat();
     document.getElementById('trip-lng').value = place.geometry.location.lng();
@@ -51,30 +53,30 @@ $(document).ready(function(){
 	}
 
 /* 	EXPLORE SEARCH 	*/
-	$('#explore-btn').click(function() {
-		// e.preventDefault();
-		// console.log('The explore button was clicked.');
+	// when explore search button is clicked
+	$('#explore-btn').click(function(e) {
+		e.preventDefault();
 		var exploreInput = $('#explore-search-input').val();
-		// console.log(exploreInput);
 		$('#explore-results').empty();
 		$.ajax({
 			url: '/api/explore/'+exploreInput,
 			type: "GET",
 		})
-		// if success
+		// if success from server
 		.done(function(data) {
-			console.log('Server returned this data to the client: ', data);
+			// if there are items returned from server
 			if (data.length>0) {
-			for (var i=0; i<data.length; i++) {
-				var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data[i].img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data[i].location+"</h3><p>"+data[i].description+"</p><p>"+data[i].date+"<span class='pull-right'>"+data[i].username+"</p></div></div>";
-				$('#explore-results').prepend(postHtml);
-				$('#explore-search-input').val();
+				for (var i=0; i<data.length; i++) {
+					var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data[i].img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data[i].location+"</h3><p>"+data[i].description+"</p><p class='date'>"+data[i].date+"</p></div></div>";
+					$('#explore-results').prepend(postHtml);
+					$('#explore-search-input').val();
 			}
+			// if there are no items returned from server
 			} else {
-				$('#explore-results').prepend("<p class='text-center'>No posts match your search. Try another search.");
+				$('#explore-results').prepend("<p id='no-results-search-result'>No posts match your search. Try another search.");
 			}
 		})
-		// if failure
+		// if failure from server
 		.fail(function(data) {
 			alert("Failed to post");
 		});
@@ -85,10 +87,8 @@ $(document).ready(function(){
 	// on sumbit of the signup form
 	$('#signup-form').submit(function(e){
 		e.preventDefault();
-		console.log('Prevented default on the sign-up form.');
 		// serialize the form data
 		var userData = $(this).serialize();
-		console.log("The data from the signup form is: ", userData);
 		// send data to server
 		$.ajax({
 			url: '/api/users',
@@ -108,20 +108,18 @@ $(document).ready(function(){
 	});
 
 /* 	LOGIN USER 	*/
+
 	//when sign in form submit button is clicked
 	$('#signin-form').submit(function(e){
 		e.preventDefault();
-		// console.log('Prevented default on the sign-in form.');
 		// serialize the form data
 		var userData = $(this).serialize();
-		// console.log("User data from the sign-in form is: ", userData);
 		$.ajax({
 			url: '/login',
 			type: "POST",
 			data: userData,
 		})
 		.done(function(data) {
-			// console.log('user data: ', data);
 			$('#signin-form-modal').modal('hide');
 			$('.logged-in').show();
 			window.location.href= "/profile";
@@ -132,6 +130,7 @@ $(document).ready(function(){
 	});
 
 /* 	LOGOUT USER 	*/
+
 	// when logout button is clicked (it's in the settings dropdown)
 	$('#logout-btn').click(function(){
 		$.ajax ({
@@ -140,7 +139,6 @@ $(document).ready(function(){
 		})
 		// if succesffully logged out
 		.done(function (data) {
-			console.log("User is logged out.");
 			window.location.href= "/";
 		})
 		// if failure
@@ -152,29 +150,21 @@ $(document).ready(function(){
 /* 	LOG A NEW TRIP 	*/
 	$('#trip-form').submit(function (e) {
 		e.preventDefault();
-		console.log('Prevented default on the sign-up form.');
 		// serialize the form data
 		console.log($('#inputImageUrl').val());
 		var img = $('#inputImageUrl').val().split("");
 		console.log(img);
 		var tripData = $(this).serialize();
-		// console.log('The data from the trip form is: ', tripData);
 		$.ajax({
 			url: '/api/posts',
 			type: "POST",
 			data: tripData
 		}, function(output) { console.log( output); } )
 		.done(function(data) {
-			// console.log("Server returned the data: ", data);
-			var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data.img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data.location+"</h3><p>"+data.description+"</p><p>"+data.date+"<button data-id="+data._id+" type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></p></div></div>";
-			// console.log(postHtml);
+			var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data.img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data.location+"</h3><p>"+data.description+"</p><p class='date'>"+data.date+"<button data-id="+data._id+" type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button></p></div></div>";
 			$("#tripStream").prepend(postHtml);
 			$('#trip-form')[0].reset();
 			$('#searchTextField').val('');
-			// find user by user id and push Post into user.posts
-					//	zelda.consoles.push(nin64);
-					//	zelda.save();
-
 		})
 		.fail(function(data) {
 			alert("Failed to post");
@@ -184,21 +174,15 @@ $(document).ready(function(){
 /* 	DELETE A TRIP 	*/
 	$('#tripStream').on('click', '.close', function(e) {
 	 	e.preventDefault();
-	 	//console.log($(this));
 	 	var post = $(this).data();
 	 	var postId = $(this).data().id;
-	 	// console.log(postId);
 		var deletedPost = $(this).closest('div.trip-post');
-		// console.log(deletedPost);
-		//$(deletedPost).empty();
 		$.ajax({
 			url:'/posts/' + postId,
 			type: "DELETE"
 		})
 		.done(function(data) {
-			// console.log(data);
 			$(deletedPost).remove();
-			// console.log("post has been deleted");
 		})
 		.fail(function(data) {
 			alert("failed to delete post");
