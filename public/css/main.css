@@ -112,6 +112,9 @@ h4 {
 #profile-content {
 	margin: 90px 0 0 0;
 }
+#profile-content-stream {
+	margin: 0 0 50px 0;
+}
 img.media-object {
 	height: 100px;
 	width: 100px;
