@@ -13,78 +13,80 @@
 
 	<div class="container">
 		<div class="row">
-			<!-- user info -->
-			<div class="col-md-3">
+
+			<!-- User Info -->
+
+			<div class="col-md-3" id="user-info">
 				<img src="<%= user.img %>" class="img-circle" id="profile-picture" alt="profile picture">
 				<br>
 				<h3><%= user.username %></h3>
 				<p><%= user.bio %></p>
 				<p id="user-city"><%= user.location %></p>
 			</div>
-			<!-- profile stream -->
-			<div class="col-md-7 col-md-offset-1 text-center" id="profile-stream">
-				<!-- log a trip -->
-				<div class="row">
-					<h2>Log a voyage</h2>
-					<div class="col-md-12">
+
+			<!-- Profile Stream -->
+			<div class="col-md-9">
+				<div class="row" id="profile-content">
+					<div class="col-md-8 col-md-offset-2">
+						<h2>Log a voyage</h2>
 						<input id="searchTextField" type="text" class="form-control" placeholder="Location" name="location" required>
-					</div>
 
-					<!-- log a trip form -->
+						<!-- log a trip form -->
+	
+						<form id="trip-form">
 
-					<form id="trip-form">
-						<!-- hidden -->
-						<input type="text" class="hidden" id="trip-user" name="user" value="<%= user._id %>">
-						<input type="text" class="hidden" id="trip-location" placeholder="City, State, Country" name="location" value="1">
-						<input type="hidden" id="trip-lat" name="lat" value="1">
-						<input type="hidden" id="trip-lng" name="lng" value="1">
-						<!-- <input type="hidden" id="trip-lat-lng" name="latLng" value="1"> -->
+						<!-- hidden input fields -->
+							<input type="text" class="hidden" id="trip-user" name="user" value="<%= user._id %>">
+							<input type="text" class="hidden" id="trip-location" placeholder="City, State, Country" name="location" value="1">
+							<input type="hidden" id="trip-lat" name="lat" value="1">
+							<input type="hidden" id="trip-lng" name="lng" value="1">
 
 						<!-- visible -->
 
 							<!-- first column of form -->
-
-						<div class="col-md-6">
-							<!-- date -->
-							<div class="form-group">
-							  <label for="inputDate">Date</label>
-							  <input type="text" class="form-control" id="inputDate" placeholder="Date" name="date">
+							<div class="col-md-6">
+								<!-- date -->
+								<div class="form-group">
+								  <label for="inputDate">Date</label>
+								  <input type="text" class="form-control" id="inputDate" placeholder="Date" name="date">
+								</div>
+								<!-- image -->
+								<div class="form-group">
+								  <label for="inputImageUrl">Image</label>
+								  <input type="text" class="form-control" id="inputImageUrl" placeholder="Paste a URL to your photo" name="img">
+								</div>
 							</div>
-							<!-- image -->
-							<div class="form-group">
-							  <label for="inputImageUrl">Image</label>
-							  <input type="text" class="form-control" id="inputImageUrl" placeholder="Paste a URL to your photo" name="img">
-							</div>
-						</div>
-
 							<!-- second column of form -->
-
-						<div class="col-md-6">
-							<!-- description -->
-							<div class="form-group">
-							  <label for="inputDescription">Description</label>
-							  <textarea type="text" class="form-control" id="inputDescription" placeholder="Share your thoughts and experiences" name="description"></textarea> 
-							</div>
-							<!-- form submit button -->
-							<div class="text-right">
-							  <button type="submit" class="btn btn-default">Submit</button>
-							</div>
-						</div>
-					</form>
-				</div>
-
-<!-- Voyages -->
-
-				<div id="tripStream">
-					<% if (user.posts.length > 0 ) {%>
-					<% for (var i=user.posts.length-1; i>=0; i--) {%>
-					<div class="trip-post" id="<%=user.posts._id%>">
-					<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=user.posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=user.posts[i].location%></h3><p><%=user.posts[i].description%></p><p><%=user.posts[i].date%><button data-id="<%= user.posts[i]._id %>" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div>
+							<div class="col-md-6">
+								<!-- description -->
+								<div class="form-group">
+								  <label for="inputDescription">Description</label>
+								  <textarea type="text" class="form-control" id="inputDescription" placeholder="Share your thoughts and experiences" name="description"></textarea> 
+								</div>
+								<!-- form submit button -->
+								<div class="text-right">
+								  <button type="submit" class="btn btn-default">Submit</button>
+								</div>
+							</div>	
+						</form>
 					</div>
-					<%}%>
-					<%} else {%>
-					<!-- <p class="trip-post"> No voyages have been logged yet. </p> -->
-					<%}%>
+				</div>
+				<div class="row">
+					<div class="col-md--8 col-md-offset-2">
+						<!-- Trip Stream -->
+
+						<div id="tripStream">
+							<% if (user.posts.length > 0 ) {%>
+							<% for (var i=user.posts.length-1; i>=0; i--) {%>
+							<div class="trip-post" id="<%=user.posts._id%>">
+							<div class='media text-left'> <div class='media-left'> <img class='media-object' src='<%=user.posts[i].img%>' alt='...'></div><div class='media-body'><h3 class='media-heading'><%=user.posts[i].location%></h3><p><%=user.posts[i].description%></p><p class="date"><%=user.posts[i].date%><button data-id="<%= user.posts[i]._id %>" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></p></div></div>
+							</div>
+							<%}%>
+							<%} else {%>
+							<!-- <p class="trip-post"> No voyages have been logged yet. </p> -->
+							<%}%>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
