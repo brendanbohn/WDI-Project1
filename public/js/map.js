@@ -1,17 +1,30 @@
 console.log('Sanity check, client-side JS is working.');
 
+//defining these variables globally to prevent any scope issues with all the functions.
+var infowindow; 
+var marker;
+var myLatLng;
+var map;
+
+function markListen(marker, contentString) {
+  marker.addListener('click', function() {
+    infowindow.setContent(contentString);
+    infowindow.open(map, marker);
+  });
+}
+
 // creates a map
 function initMap(position) {
   // sets a latitude and longitude
   if (position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
-    var myLatLng = {lat: lat, lng: lng};
+    myLatLng = {lat: lat, lng: lng};
   } else {
-    var myLatLng = {lat: 37.78, lng: -122.44};  
+    myLatLng = {lat: 37.78, lng: -122.44};  
   }
   // creates a map in the element with id='map'
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: myLatLng
   });
@@ -30,19 +43,15 @@ function initMap(position) {
       contentString = '<div class="trip-post" id="'+data.user.posts[i]._id+'"><div class="media text-left"><div class="media-left"><img class="media-object" src="'+data.user.posts[i].img+'" alt="..."></div><div class="media-body"><h3 class="media-heading">'+data.user.posts[i].location+'</h3><p>'+data.user.posts[i].description+'</p><p>'+data.user.posts[i].date+'<span class="pull-right">'+data.user.username+'</p></div></div></div>';
 
       // Create a marker for each place.
-        var marker =  new google.maps.Marker({
+        marker =  new google.maps.Marker({
         map: map,
         title: data.user.posts[i].location,
         position: postLatLng
       });
-          // creates an info window
-      var infowindow = new google.maps.InfoWindow({
-        content: contentString
-      });
+      // creates an info window
+      infowindow = new google.maps.InfoWindow({ maxWidth:500 }); // set max width to 500px
       // opens the infowindow when the marker is clicked
-      marker.addListener('click', function() {
-        infowindow.open(map, marker);
-      });   
+      markListen(marker, contentString);
     }
   });
 }
@@ -66,7 +75,7 @@ function checkAuth() {
   }*/
 // executes once the page is fully loaded
 $(document).ready(function(){
-
+  checkAuth();
   // creates the map
   if (navigator.geolocation) {
       // map center is the user's location if they share their location
@@ -77,6 +86,5 @@ $(document).ready(function(){
   }
 
   // checks if user is logged in
-  checkAuth();
 
 });
