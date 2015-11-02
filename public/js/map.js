@@ -27,7 +27,7 @@ function initMap(position) {
       console.log(postLatLng);
       // var icon = "/js/Pin.png";
       // put is username of the person who created it in the content string
-      contentString = '<div class="trip-post" id="'+data.user.posts._id+'"><div class="media text-left"><div class="media-left"><img class="media-object" src="'+data.user.posts[i].img+'" alt="..."></div><div class="media-body"><h3 class="media-heading">'+data.user.posts[i].location+'</h3><p>'+data.user.posts[i].description+'</p><p>'+data.user.posts[i].date+'<span class="pull-right">'+data.user.username+'</p></div></div></div>';
+      contentString = '<div class="trip-post" id="'+data.user.posts[i]._id+'"><div class="media text-left"><div class="media-left"><img class="media-object" src="'+data.user.posts[i].img+'" alt="..."></div><div class="media-body"><h3 class="media-heading">'+data.user.posts[i].location+'</h3><p>'+data.user.posts[i].description+'</p><p>'+data.user.posts[i].date+'<span class="pull-right">'+data.user.username+'</p></div></div></div>';
 
       // Create a marker for each place.
         var marker =  new google.maps.Marker({
