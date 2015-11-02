@@ -66,7 +66,9 @@ $(document).ready(function(){
 		.done(function(data) {
 			// if there are items returned from server
 			if (data.length>0) {
-				for (var i=0; i<data.length; i++) {
+				// for (var i=user.posts.length-1; i>=0; i--)
+				// for (var i=0; i<data.length; i++) {
+				for (var i=data.length-1; i>=0; i--) {
 					var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data[i].img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data[i].location+"</h3><p>"+data[i].description+"</p><p class='date'>"+data[i].date+"</p></div></div>";
 					$('#explore-results').prepend(postHtml);
 					$('#explore-search-input').val();
