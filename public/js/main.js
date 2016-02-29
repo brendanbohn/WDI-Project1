@@ -1,6 +1,63 @@
 // Make sure JS is working on the client
 console.log('The client-side JS is working.');
 
+//defining these variables globally to prevent any scope issues with all the functions.
+var infowindow; 
+var marker;
+var myLatLng;
+var map;
+
+function markListen(marker, contentString) {
+  marker.addListener('click', function() {
+    infowindow.setContent(contentString);
+    infowindow.open(map, marker);
+  });
+}
+
+// creates a map
+function initMap(position) {
+  // sets a latitude and longitude
+  if (position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    myLatLng = {lat: lat, lng: lng};
+  } else {
+    myLatLng = {lat: 37.78, lng: -122.44};  
+  }
+  // creates a map in the element with id='map'
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 2,
+    center: myLatLng,
+    scrollwheel: false
+  });
+  // $.get('/api/marks', function (data) {
+  //   console.log(data.user.posts);
+  //   var posts = data.user.posts;
+  //   console.log(posts.length);
+  //   for (var i = 0; i < data.user.posts.length; i++) {
+      
+  //     var lat = data.user.posts[i].lat;
+  //     var lng = data.user.posts[i].lng;
+  //     var postLatLng = {lat: lat, lng: lng};
+  //     console.log(postLatLng);
+  //     // var icon = "/js/Pin.png";
+  //     // put is username of the person who created it in the content string
+  //     contentString = '<div class="trip-post" id="'+data.user.posts[i]._id+'"><div class="media text-left"><div class="media-left"><img class="media-object" src="'+data.user.posts[i].img+'" alt="..."></div><div class="media-body"><h3 class="media-heading">'+data.user.posts[i].location+'</h3><p>'+data.user.posts[i].description+'</p><p>'+data.user.posts[i].date+'<span class="pull-right">'+data.user.username+'</p></div></div></div>';
+
+  //     // Create a marker for each place.
+  //       marker =  new google.maps.Marker({
+  //       map: map,
+  //       title: data.user.posts[i].location,
+  //       position: postLatLng
+  //     });
+  //     // creates an info window
+  //     infowindow = new google.maps.InfoWindow({ maxWidth:500 }); // set max width to 500px
+  //     // opens the infowindow when the marker is clicked
+  //     markListen(marker, contentString);
+  //   }
+  // });
+}
+
 /* 	USER AUTHORIZATION 	*/
 
 // checks if user is logged in
@@ -43,6 +100,10 @@ var initAutocomplete = function() {
 
 $(document).ready(function(){
 
+	if (document.getElementById('map')) {
+		initMap();
+	}
+
 /*	AUTHORIZATION 	*/
 	checkAuth();
 
@@ -69,7 +130,7 @@ $(document).ready(function(){
 				// for (var i=user.posts.length-1; i>=0; i--)
 				// for (var i=0; i<data.length; i++) {
 				for (var i=data.length-1; i>=0; i--) {
-					var postHtml = "<div class='media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data[i].img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data[i].location+"</h3><p>"+data[i].description+"</p><p class='date'>"+data[i].date+"</p></div></div>";
+					var postHtml = "<div class='col-sm-10 col-sm-offset-2 media text-left trip-post'> <div class='media-left'> <img class='media-object' src='"+data[i].img+"' alt='...'></div><div class='media-body'><h3 class='media-heading'>"+data[i].location+"</h3><p>"+data[i].description+"</p><p class='date'>"+data[i].date+"</p></div></div>";
 					$('#explore-results').prepend(postHtml);
 					$('#explore-search-input').val();
 			}

@@ -10,35 +10,41 @@
 <%- include _nav.ejs %>
 
 <!-- WELCOME DIV -->
+   <!--    <a href="#" data-toggle="modal" data-target=".signup-form-modal-md" class="sign-buttons"><span id="signup-button">Sign Up</span></a>
+      <a href="#" data-toggle="modal" data-target=".signin-form-modal-md" class="sign-buttons"><span id="signin-button">Sign In</span></a> -->
 
   <div class="main">
-    <h1>Welcome to Captain's Log</h1>
-    <p>Track your trips and explore others</p>
-    <div>
-      <a href="#" data-toggle="modal" data-target=".signup-form-modal-lg" class="sign-buttons"><span id="signup-button">Sign Up</span></a>
-      <a href="#" data-toggle="modal" data-target=".signin-form-modal-lg" class="sign-buttons"><span id="signin-button">Sign In</span></a>
+    <div id="map" class="column my-map"></div>
+    <div id="explore">
+      <h2 id="explore-search-title" class="text-center">Explore</h2>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Enter keyword(s)" id="explore-search-input" name="explore-search" required>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-default" id="explore-btn">Explore!</button>
+        </span>
+      </div>
     </div>
   </div>
 
 <!-- EXPLORE DIV -->
 
-  <div class="container">
+<!--   <div class="container">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <h2 id="explore-search-title" class="text-center">Explore</h2>
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Enter keywords" id="explore-search-input" name="explore-search" required>
+          <input type="text" class="form-control" placeholder="Enter keyword(s)" id="explore-search-input" name="explore-search" required>
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" id="explore-btn">Explore!</button>
+            <button type="submit" class="btn btn-default" id="explore-btn">Explore!</button>
           </span>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- EXPLORE SEARCH -->
-  <div class="container">
+  <div class="container" id="explore-results">
     <div class="row">
-      <div class="col-sm-6 col-sm-offset-3" id="explore-results">
+      <div class="col-sm-6 col-sm-offset-3">
         <!-- RESULTS OF THE EXPLORE SEARCH -->
       </div>
     </div>
@@ -46,8 +52,8 @@
 
 <!-- SIGN UP MODAL -->
 
-  <div class="modal fade signup-form-modal-lg" id="signup-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg">
+  <div class="modal fade signup-form-modal-md" id="signup-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
         <h2>Sign Up</h2>
         <form id="signup-form">
@@ -85,8 +91,8 @@
 
 <!-- SIGN IN MODAL -->
 
-  <div class="modal fade signin-form-modal-lg" id="signin-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg">
+  <div class="modal fade signin-form-modal-md" id="signin-form-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
         <form id="signin-form">
         <h2>Sign In</h2>
