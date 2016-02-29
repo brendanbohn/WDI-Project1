@@ -91,6 +91,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		// serialize the form data
 		var userData = $(this).serialize();
+		console.log(userData);
 		// send data to server
 		$.ajax({
 			url: '/api/users',
